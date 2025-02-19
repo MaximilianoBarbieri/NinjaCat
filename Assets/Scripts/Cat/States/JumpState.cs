@@ -13,6 +13,9 @@ public class JumpState : State
 
     public override void OnUpdate()
     {
+        _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
+
+        Debug.Log("MOVE DESDE JUMP STATE    ");
     }
 
     public override void OnExit()

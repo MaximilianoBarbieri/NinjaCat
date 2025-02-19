@@ -20,7 +20,7 @@ public class Cat : MonoBehaviour
     public Rigidbody catRigidBody;
 
     public StateMachine stateMachine;
-
+    
     public Action OnJump;
 
     //private float _lifeCount;
