@@ -9,7 +9,9 @@ public class Controller
 
     public void ControllerUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _cat.modelCat.TouchGround())
+        _cat.modelCat.IsGrounded();
+
+        if (Input.GetKeyDown(KeyCode.Space) && _cat.modelCat.isGround)
             _cat.stateMachine.ChangeState(Cat.CatState.Jump);
     }
 }

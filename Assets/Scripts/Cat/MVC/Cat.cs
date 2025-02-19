@@ -17,6 +17,8 @@ public class Cat : MonoBehaviour
     public float JumpForce => _jumpForce;
     public float JumpDuration => _jumpDuration;
 
+    public Rigidbody catRigidBody;
+
     public StateMachine stateMachine;
 
     public Action OnJump;
@@ -25,6 +27,8 @@ public class Cat : MonoBehaviour
     //public float LifeCount => _lifeCount;
     private void Start()
     {
+        catRigidBody = GetComponent<Rigidbody>();
+
         InitializedMVC();
         InitializedStateMachine();
     }
@@ -52,6 +56,7 @@ public class Cat : MonoBehaviour
     private void Update()
     {
         stateMachine?.Update();
+
         controllerCat.ControllerUpdate();
     }
 

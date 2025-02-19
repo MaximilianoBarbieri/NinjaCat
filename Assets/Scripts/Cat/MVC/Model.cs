@@ -7,22 +7,27 @@ public class Model
 {
     private Cat _cat;
 
-    private bool _isJumping;
+    public bool isGround => IsGrounded();
+
     private readonly int _groundLayer = LayerMask.GetMask("Ground");
 
     public Model(Cat cat) => _cat = cat;
 
     private void Move(float input) => _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
 
-    public void JumpHandler(Vector3 dir)
+    public void Jump()
     {
-        _cat.transform.Translate(dir * _cat.JumpForce * Time.deltaTime);
+        _cat.catRigidBody.velocity =
+            new Vector3(_cat.catRigidBody.velocity.x, 0f,
+                _cat.catRigidBody.velocity.z); // Resetea la velocidad en Y para un salto consistente
+        _cat.catRigidBody.AddForce(Vector3.up * _cat.JumpForce, ForceMode.Impulse);
     }
 
-    public bool TouchGround()
+    public bool IsGrounded()
     {
-        return Physics.Raycast(_cat.transform.position, Vector3.down, 0.2f, _groundLayer);
+        return Physics.OverlapSphere(_cat.transform.position, 0.1f, _groundLayer).Length > 0;
     }
+
 
     private void TakeDamage()
     {
