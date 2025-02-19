@@ -9,15 +9,16 @@ public class Controller
 
     public void ControllerUpdate()
     {
-        _cat.modelCat.IsGrounded();
-
-        Debug.Log(_cat.modelCat.IsGrounded()
-        );
-
-        if (Input.GetAxisRaw("Horizontal") != 0 || _cat.modelCat.isGround)
-            _cat.stateMachine.ChangeState(Cat.CatState.Run);
-
-        if (Input.GetKeyDown(KeyCode.Space) && _cat.modelCat.isGround)
-            _cat.stateMachine.ChangeState(Cat.CatState.Jump);
+        if (_cat.modelCat.IsGrounded())
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _cat.stateMachine.ChangeState(Cat.CatState.Jump);
+            }
+            else if (Input.GetAxisRaw("Horizontal") != 0 && _cat.modelCat.isJumping)
+            {
+                _cat.stateMachine.ChangeState(Cat.CatState.Run);
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ public class Model
 
     public bool IsGrounded()
     {
-        return Physics.OverlapSphere(_cat.transform.position, 0.01f, _groundLayer).Length > 0;
+        return Physics.OverlapSphere(_cat.transform.position, 0.1f, _groundLayer).Length > 0;
     }
 
 

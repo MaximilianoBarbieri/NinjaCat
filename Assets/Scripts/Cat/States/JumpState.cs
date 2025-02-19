@@ -9,6 +9,8 @@ public class JumpState : State
     public override void OnEnter()
     {
         _cat.modelCat.Jump();
+
+        _cat.modelCat.isJumping = true;
     }
 
     public override void OnUpdate()
@@ -20,5 +22,6 @@ public class JumpState : State
 
     public override void OnExit()
     {
+        _cat.modelCat.isJumping = false;
     }
 }
