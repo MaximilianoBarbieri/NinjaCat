@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1509251347698146423}
   - component: {fileID: 1295883148968964598}
   - component: {fileID: 38265503900631972}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Trigger Disable This Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 2340015830137136676}
   - component: {fileID: 4333783766939515091}
   - component: {fileID: 196644128793582418}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Trigger Enable A Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 6088139325392034071}
   - component: {fileID: 4782024877467785730}
   m_Layer: 3
-  m_Name: Road 5
+  m_Name: Road 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd918532ea0c64547a76722f2740580c, type: 2}
+  - {fileID: 2100000, guid: 3983c60e1396f3e4b98961c8b9d30a36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,4 +254,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2491fa4b1708b84f9a222b7d4b33633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
