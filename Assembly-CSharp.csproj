@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Cat\MVC\Controller.cs" />
      <Compile Include="Assets\Scripts\StateMachine\State.cs" />
+     <Compile Include="Assets\Scripts\Cat\States\FallState.cs" />
      <Compile Include="Assets\Scripts\Cat\States\RunState.cs" />
      <Compile Include="Assets\Scripts\Cat\States\TakeDamageState.cs" />
      <Compile Include="Assets\Scripts\Cat\States\WinState.cs" />
@@ -61,6 +62,8 @@
      <Compile Include="Assets\Scripts\RoadManager.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Prefab" />
+     <Folder Include="Assets\Prefab\Obstacles" />
+     <Folder Include="Assets\Prefab\Roads" />
      <Folder Include="Assets\Scripts\Cat\States" />
      <Folder Include="Assets\Scripts\Cat\MVC" />
      <Folder Include="Assets\Scenes" />

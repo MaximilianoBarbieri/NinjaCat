@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Controller
@@ -15,7 +13,7 @@ public class Controller
             {
                 _cat.stateMachine.ChangeState(Cat.CatState.Jump);
             }
-            else if (Input.GetAxisRaw("Horizontal") != 0 && _cat.modelCat.isJumping)
+            else
             {
                 _cat.stateMachine.ChangeState(Cat.CatState.Run);
             }

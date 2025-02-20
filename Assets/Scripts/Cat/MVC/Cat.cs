@@ -23,8 +23,9 @@ public class Cat : MonoBehaviour
     
     public Action OnJump;
 
-    //private float _lifeCount;
-    //public float LifeCount => _lifeCount;
+    private int _lifeCount = 3; // Inicializar la vida del personaje
+    public int LifeCount => _lifeCount;
+
     private void Start()
     {
         catRigidBody = GetComponent<Rigidbody>();
@@ -46,6 +47,7 @@ public class Cat : MonoBehaviour
 
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
+        stateMachine.AddState(CatState.Fall, new JumpState(this));
         stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
         stateMachine.AddState(CatState.Lose, new LoseState(this));
         stateMachine.AddState(CatState.Win, new WinState(this));
@@ -56,8 +58,33 @@ public class Cat : MonoBehaviour
     private void Update()
     {
         stateMachine?.Update();
-
         controllerCat.ControllerUpdate();
+    }
+
+    public void TakeDamage()
+    {
+        _lifeCount--; 
+
+        Debug.Log("Cat recibió daño, vidas restantes: " + _lifeCount);
+
+        if (_lifeCount <= 0)
+        {
+            stateMachine.ChangeState(CatState.Lose);
+            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
+            //TODO: ejecutar action OnLose en el state Lose (hacer que se dejen de mover todas las ROADS)
+        }
+        else
+        {
+            stateMachine.ChangeState(CatState.TakeDamage);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle")) // Si choca con un obstáculo, pierde una vida
+        {
+            TakeDamage();
+        }
     }
 
     public void Win()
@@ -67,11 +94,25 @@ public class Cat : MonoBehaviour
     public void Lose()
     {
     }
+    
+    private void OnDrawGizmos()
+    {
+        if (modelCat == null) return;
+
+        float raycastDistance = 0.2f;
+        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f, transform.position.z);
+        Vector3 direction = Vector3.down * raycastDistance;
+
+        Gizmos.color = modelCat.IsGrounded() ? Color.green : Color.red;
+        Gizmos.DrawLine(origin, origin + direction);
+        Gizmos.DrawSphere(origin + direction, 0.05f);
+    }
 
     public enum CatState
     {
         Run,
         Jump,
+        Fall,
         TakeDamage,
         Lose,
         Win
