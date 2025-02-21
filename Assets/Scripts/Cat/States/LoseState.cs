@@ -10,6 +10,8 @@ public class LoseState : State
 
     public override void OnEnter()
     {
+        //TODO: animacion de muerte?
+        //TODO: Action OnLose para ejecutar OnLoose en las clases correspondientes?
     }
 
     public override void OnUpdate()

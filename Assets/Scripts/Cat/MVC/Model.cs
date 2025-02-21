@@ -36,8 +36,22 @@ public class Model
     }
 
 
-    private void TakeDamage()
+    public void TakeDamage()
     {
+        _cat._lifeCount--; 
+
+        Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
+
+        if (_cat._lifeCount <= 0)
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Lose);
+            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
+            //TODO: ejecutar action OnLose en el state Lose (hacer que se dejen de mover todas las ROADS)
+        }
+        else
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
+        }
     }
 
     private void CollectPowerUp()

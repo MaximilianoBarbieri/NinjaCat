@@ -23,8 +23,9 @@ public class Cat : MonoBehaviour
     
     public Action OnJump;
 
-    private int _lifeCount = 3; // Inicializar la vida del personaje
+    public int _lifeCount = 3; // Inicializar la vida del personaje
     public int LifeCount => _lifeCount;
+    
 
     private void Start()
     {
@@ -61,7 +62,7 @@ public class Cat : MonoBehaviour
         controllerCat.ControllerUpdate();
     }
 
-    public void TakeDamage()
+    /*public void TakeDamage()
     {
         _lifeCount--; 
 
@@ -77,13 +78,13 @@ public class Cat : MonoBehaviour
         {
             stateMachine.ChangeState(CatState.TakeDamage);
         }
-    }
+    }*/
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle")) // Si choca con un obstáculo, pierde una vida
+        if (other.CompareTag("Obstacle")) 
         {
-            TakeDamage();
+            modelCat.TakeDamage();
         }
     }
 
