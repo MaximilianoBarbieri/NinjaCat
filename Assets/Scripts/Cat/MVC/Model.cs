@@ -16,9 +16,7 @@ public class Model
 
     public void Move(float input)
     {
-        _cat.transform.Translate(new Vector3(
-            ItemManager.Instance.isControlsReversed ? -input : input * _cat.Speed * Time.deltaTime
-            , 0, 0));
+        _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
     }
 
     public void Jump()
@@ -35,7 +33,8 @@ public class Model
     public bool IsGrounded()
     {
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f, _cat.transform.position.z);
+        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f,
+            _cat.transform.position.z);
 
         return Physics.Raycast(origin, Vector3.down, raycastDistance, _groundLayer);
     }
@@ -43,11 +42,11 @@ public class Model
 
     public void TakeDamage()
     {
-        _cat._lifeCount--; 
+        _cat.LifeCount--;
 
-        Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
+        Debug.Log("Cat recibió daño, vidas restantes: " + _cat.LifeCount);
 
-        if (_cat._lifeCount <= 0)
+        if (_cat.LifeCount <= 0)
         {
             _cat.stateMachine.ChangeState(Cat.CatState.Lose);
             Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
@@ -66,6 +65,4 @@ public class Model
     private void CollectNerf()
     {
     }
-    
-    
 }

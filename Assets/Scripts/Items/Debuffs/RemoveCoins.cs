@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseLife : Buff
+public class RemoveCoins : Debuff
 {
+    private int _removeValue = 5;
 
     public override void ProcessEffect()
     {
-        if (_cat.LifeCount < Utils.MAX_LIFECOUNT)
-        {
-            _cat.LifeCount++;
-        }
+        if (_cat.Coins > 0)
+            _cat.Coins -= _removeValue;
     }
 }

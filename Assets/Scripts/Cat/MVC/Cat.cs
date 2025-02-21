@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cat : MonoBehaviour
@@ -13,19 +15,37 @@ public class Cat : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _jumpDuration;
 
-    public float Speed => _speed;
+    public float Speed
+    {
+        get => _speed;
+        set => _speed = value;
+    }
+
     public float JumpForce => _jumpForce;
     public float JumpDuration => _jumpDuration;
 
     public Rigidbody catRigidBody;
 
     public StateMachine stateMachine;
-    
+
     public Action OnJump;
 
-    public int _lifeCount = 3; // Inicializar la vida del personaje
-    public int LifeCount => _lifeCount;
-    
+    private int _lifeCount = 3; // Inicializar la vida del personaje
+
+    public int LifeCount
+    {
+        get => _lifeCount;
+        set => _lifeCount = value;
+    }
+
+    private int _coins;
+
+    public int Coins
+    {
+        get => _coins;
+        set => _coins = value;
+    }
+
 
     private void Start()
     {
@@ -64,7 +84,7 @@ public class Cat : MonoBehaviour
 
     /*public void TakeDamage()
     {
-        _lifeCount--; 
+        _lifeCount--;
 
         Debug.Log("Cat recibió daño, vidas restantes: " + _lifeCount);
 
@@ -82,7 +102,7 @@ public class Cat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle")) 
+        if (other.CompareTag("Obstacle"))
         {
             modelCat.TakeDamage();
         }
@@ -95,13 +115,14 @@ public class Cat : MonoBehaviour
     public void Lose()
     {
     }
-    
+
     private void OnDrawGizmos()
     {
         if (modelCat == null) return;
 
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f, transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f,
+            transform.position.z);
         Vector3 direction = Vector3.down * raycastDistance;
 
         Gizmos.color = modelCat.IsGrounded() ? Color.green : Color.red;

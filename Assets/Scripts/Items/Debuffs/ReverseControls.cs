@@ -14,12 +14,12 @@ public class ReverseControls : Debuff
     private IEnumerator ApplyReverseControls()
     {
         // Activar el cambio global en los controles
-        ItemManager.Instance.isControlsReversed = true;
+        ItemManager.OnModifyControls?.Invoke(-1);
 
         // Esperar la duración del debuff
         yield return new WaitForSeconds(duration);
 
         // Restaurar controles normales
-        ItemManager.Instance.isControlsReversed = false;
+        ItemManager.OnModifyControls?.Invoke(-1);
     }
 }

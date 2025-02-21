@@ -1,15 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    [Header("Debuffs")] 
-    
-    public bool isControlsReversed;
-    
-    //[Header("Buffs")]
-    
+    private Cat _cat;
+
+    [Header("Debuffs")] public static Action<float> OnModifyControls;
+
     public static ItemManager Instance { get; private set; }
 
     private void Awake()
@@ -21,5 +21,12 @@ public class ItemManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _cat = GetComponent<Cat>();
+
+        OnModifyControls = (f) => _cat.Speed *= f;
     }
 }
