@@ -14,7 +14,12 @@ public class Model
 
     public Model(Cat cat) => _cat = cat;
 
-    public void Move(float input) => _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
+    public void Move(float input)
+    {
+        _cat.transform.Translate(new Vector3(
+            ItemManager.Instance.isControlsReversed ? -input : input * _cat.Speed * Time.deltaTime
+            , 0, 0));
+    }
 
     public void Jump()
     {
