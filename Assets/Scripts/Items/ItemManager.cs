@@ -8,9 +8,12 @@ public class ItemManager : MonoBehaviour
 {
     private Cat _cat;
 
-    [Header("Debuffs")] public static Action<float> OnModifyControls;
+    public Action<bool> OnModifyControls;
+    public Action<int> OnModifyCoins;
+    public Action<int> OnModifyLife;
 
     public static ItemManager Instance { get; private set; }
+    public static bool IsReverseControls;
 
     private void Awake()
     {
@@ -27,6 +30,13 @@ public class ItemManager : MonoBehaviour
     {
         _cat = GetComponent<Cat>();
 
-        OnModifyControls = (f) => _cat.Speed *= f;
+//        OnModifyControls = (f) => _cat.Speed *= f;
+
+
+        OnModifyControls = (b) => IsReverseControls = b;
+
+        OnModifyCoins = (i) => _cat.Coins += i;
+
+        OnModifyLife = (i) => _cat.LifeCount += i;
     }
 }

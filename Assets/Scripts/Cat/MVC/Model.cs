@@ -16,7 +16,10 @@ public class Model
 
     public void Move(float input)
     {
-        _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
+        _cat.transform.Translate(
+            new Vector3((ItemManager.IsReverseControls
+                ? -input
+                : input) * _cat.Speed * Time.deltaTime, 0, 0));
     }
 
     public void Jump()
@@ -44,12 +47,12 @@ public class Model
     {
         _cat.LifeCount--;
 
-        Debug.Log("Cat recibió daño, vidas restantes: " + _cat.LifeCount);
+//        Debug.Log("Cat recibió daño, vidas restantes: " + _cat.LifeCount);
 
         if (_cat.LifeCount <= 0)
         {
             _cat.stateMachine.ChangeState(Cat.CatState.Lose);
-            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
+            //          Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
             //TODO: ejecutar action OnLose en el state Lose (hacer que se dejen de mover todas las ROADS)
         }
         else

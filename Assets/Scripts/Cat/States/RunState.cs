@@ -16,7 +16,7 @@ public class RunState : State
     {
         _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
 
-        Debug.Log("MOVE DESDE RUN STATE");
+//        Debug.Log("MOVE DESDE RUN STATE");
     }
 
     public override void OnExit()
