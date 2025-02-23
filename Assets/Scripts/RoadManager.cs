@@ -61,13 +61,13 @@ public class RoadManager : MonoBehaviour
 
     private GameObject GetInactiveRoad()
     {
-        // Busca un Road inactivo en la lista
-        foreach (GameObject road in roadPrefabs)
-        {
-            if (!road.activeInHierarchy)
-                return road;
-        }
+        // Filtrar solo los Roads que están inactivos
+        List<GameObject> inactiveRoads = roadPrefabs.FindAll(road => !road.activeInHierarchy);
 
-        return null; // Si todos están activos, no devuelve ninguno
+        if (inactiveRoads.Count == 0)
+            return null; // Si todos están activos, no devuelve ninguno
+
+        // Seleccionar un Road aleatorio de la lista de inactivos
+        return inactiveRoads[Random.Range(0, inactiveRoads.Count)];
     }
 }
