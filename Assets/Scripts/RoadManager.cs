@@ -8,6 +8,9 @@ public class RoadManager : MonoBehaviour
     public float roadLength = 50f; // Longitud de cada Road en el eje Z
     private GameObject lastRoad; // Último Road activado en la escena
 
+    private int roadIndex = 0; // Índice para el spawn secuencial
+    private bool useRandomSpawn = false; // Controla cuándo empezar el spawn aleatorio
+
     void Start()
     {
         if (roadPrefabs.Count == 0)
@@ -16,21 +19,41 @@ public class RoadManager : MonoBehaviour
             return;
         }
 
-
         // Activa solo un Road al inicio
-        GameObject firstRoad = roadPrefabs[Random.Range(0, roadPrefabs.Count)];
+        GameObject firstRoad = roadPrefabs[roadIndex];
         firstRoad.transform.position = Vector3.zero;
         firstRoad.SetActive(true);
         activeRoads.Enqueue(firstRoad);
         lastRoad = firstRoad;
 
-        Debug.Log("Se activó el primer Road: " + firstRoad.name);
+        roadIndex++; // Avanzar al siguiente en la lista
+
+        Debug.Log("Se activó el primer Road en orden: " + firstRoad.name);
     }
 
     public void ActivateNewRoad()
     {
-        // Selecciona un Road aleatorio que no esté activo
-        GameObject newRoad = GetInactiveRoad();
+        GameObject newRoad;
+
+        if (!useRandomSpawn)
+        {
+            // Modo secuencial: Elegir el siguiente Road en la lista
+            newRoad = roadPrefabs[roadIndex];
+            roadIndex++;
+
+            // Si hemos usado todos los Roads en orden, activar modo aleatorio
+            if (roadIndex >= roadPrefabs.Count)
+            {
+                useRandomSpawn = true;
+                Debug.Log("Modo aleatorio activado.");
+            }
+        }
+        else
+        {
+            // Modo aleatorio: Elegir un Road inactivo al azar
+            newRoad = GetInactiveRoad();
+        }
+
         if (newRoad == null)
         {
             Debug.LogWarning("No hay Roads inactivos disponibles.");
@@ -45,7 +68,7 @@ public class RoadManager : MonoBehaviour
         // Agrega a la cola de activos
         activeRoads.Enqueue(newRoad);
         lastRoad = newRoad;
-        
+
         Debug.Log("Se activó un nuevo Road: " + newRoad.name + " en posición " + newPosition);
     }
 
@@ -55,7 +78,7 @@ public class RoadManager : MonoBehaviour
 
         GameObject oldRoad = activeRoads.Dequeue();
         oldRoad.SetActive(false);
-        
+
         Debug.Log("Se desactivó el Road: " + oldRoad.name);
     }
 
