@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Utils;
 
 public class JumpState : State
 {
@@ -8,6 +9,7 @@ public class JumpState : State
 
     public override void OnEnter()
     {
+        _cat.viewCat.PLAY_ANIM(PARAM_BOOL_JUMP, true);
         _cat.modelCat.Jump();
     }
 
@@ -20,6 +22,7 @@ public class JumpState : State
 
     public override void OnExit()
     {
+        _cat.viewCat.PLAY_ANIM(PARAM_BOOL_JUMP, false);
     }
     
     //TODO: EJECUTAR EN LA ANIMACION UN CAMBIO DE ESTADO A FALL AL TERMINAR DE HACER EL SALTO

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using static Utils;
 
 public class WinState : State
 {
@@ -10,6 +8,7 @@ public class WinState : State
 
     public override void OnEnter()
     {
+        _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_WIN);
     }
 
     public override void OnUpdate()

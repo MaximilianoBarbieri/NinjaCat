@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using static Utils;
 
 public class LoseState : State
 {
@@ -10,7 +8,11 @@ public class LoseState : State
 
     public override void OnEnter()
     {
-        //TODO: animacion de muerte?
+        //TODO: crear swith con tipo de muerte a ejecutar.
+        _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
+        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_TWO);
+        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_THREE);
+        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_FOUR);
         //TODO: Action OnLose para ejecutar OnLoose en las clases correspondientes?
     }
 

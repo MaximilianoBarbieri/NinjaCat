@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using static Utils;
 
 public class Model
 {
@@ -10,7 +8,7 @@ public class Model
     public bool isGround => IsGrounded();
     public bool isJumping;
 
-    private readonly int _groundLayer = LayerMask.GetMask("Ground");
+    private readonly int _groundLayer = LayerMask.GetMask(LAYER_GROUND);
 
     public Model(Cat cat) => _cat = cat;
 

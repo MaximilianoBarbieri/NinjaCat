@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using static Utils;
 
 public class TakeDamageState : State
 {
@@ -10,6 +8,7 @@ public class TakeDamageState : State
     
     public override void OnEnter()
     {
+        _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DAMAGE);
     }
 
     public override void OnUpdate()

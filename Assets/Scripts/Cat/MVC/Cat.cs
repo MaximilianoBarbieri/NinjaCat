@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static Utils;
 
 public class Cat : MonoBehaviour
 {
@@ -12,24 +11,24 @@ public class Cat : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _jumpDuration;
-
-    public float Speed => _speed;
-    public float JumpForce => _jumpForce;
-    public float JumpDuration => _jumpDuration;
-
+    public int _lifeCount = INITIAL_LIFE; 
+    
+    public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
-
     public StateMachine stateMachine;
     
     public Action OnJump;
 
-    public int _lifeCount = 3; // Inicializar la vida del personaje
+    public float Speed => _speed;
+    public float JumpForce => _jumpForce;
+    public float JumpDuration => _jumpDuration;
     public int LifeCount => _lifeCount;
     
 
     private void Start()
     {
         catRigidBody = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
 
         InitializedMVC();
         InitializedStateMachine();
@@ -48,9 +47,8 @@ public class Cat : MonoBehaviour
 
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
-        stateMachine.AddState(CatState.Fall, new JumpState(this));
         stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
-        stateMachine.AddState(CatState.Lose, new LoseState(this));
+        stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
         stateMachine.AddState(CatState.Win, new WinState(this));
 
         stateMachine.ChangeState(CatState.Run);
@@ -82,7 +80,7 @@ public class Cat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle")) 
+        if (other.CompareTag(TAG_OBSTACLE)) 
         {
             modelCat.TakeDamage();
         }
@@ -113,7 +111,6 @@ public class Cat : MonoBehaviour
     {
         Run,
         Jump,
-        Fall,
         TakeDamage,
         Lose,
         Win

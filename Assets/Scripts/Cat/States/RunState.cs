@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static Utils;
 
 public class RunState : State
 {
@@ -9,7 +8,8 @@ public class RunState : State
     public RunState(Cat cat) => _cat = cat;
 
     public override void OnEnter()
-    {
+    { 
+        _cat.viewCat.PLAY_ANIM(PARAM_BOOL_RUN, true);
     }
 
     public override void OnUpdate()
@@ -21,5 +21,6 @@ public class RunState : State
 
     public override void OnExit()
     {
+        _cat.viewCat.PLAY_ANIM(PARAM_BOOL_RUN, false);
     }
 }
