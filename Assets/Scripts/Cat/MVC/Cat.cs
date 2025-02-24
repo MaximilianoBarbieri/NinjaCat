@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
+using static Utils;
 
 public class Cat : MonoBehaviour
 {
@@ -14,42 +11,28 @@ public class Cat : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _jumpDuration;
-
-    public float Speed
-    {
-        get => _speed;
-        set => _speed = value;
-    }
-
-    public float JumpForce => _jumpForce;
-    public float JumpDuration => _jumpDuration;
-
+    public int _lifeCount = INITIAL_LIFE; 
+    
+    public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
-
     public StateMachine stateMachine;
-
+    
+    private string lastObstacleTag;
+    
     public Action OnJump;
 
-    private int _lifeCount = 3; // Inicializar la vida del personaje
-
-    public int LifeCount
-    {
-        get => _lifeCount;
-        set => _lifeCount = value;
-    }
-
-    private int _coins;
-
-    public int Coins
-    {
-        get => _coins;
-        set => _coins = value;
-    }
-
+    public float Speed => _speed;
+    public float JumpForce => _jumpForce;
+    public float JumpDuration => _jumpDuration;
+    public int LifeCount => _lifeCount;
+    public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
+    public string GetLastObstacle() => lastObstacleTag;
+    
 
     private void Start()
     {
         catRigidBody = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
 
         InitializedMVC();
         InitializedStateMachine();
@@ -68,9 +51,9 @@ public class Cat : MonoBehaviour
 
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
-        stateMachine.AddState(CatState.Fall, new JumpState(this));
+        stateMachine.AddState(CatState.Slide, new SlideState(this));
         stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
-        stateMachine.AddState(CatState.Lose, new LoseState(this));
+        stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
         stateMachine.AddState(CatState.Win, new WinState(this));
 
         stateMachine.ChangeState(CatState.Run);
@@ -82,29 +65,12 @@ public class Cat : MonoBehaviour
         controllerCat.ControllerUpdate();
     }
 
-    /*public void TakeDamage()
-    {
-        _lifeCount--;
-
-        Debug.Log("Cat recibió daño, vidas restantes: " + _lifeCount);
-
-        if (_lifeCount <= 0)
-        {
-            stateMachine.ChangeState(CatState.Lose);
-            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
-            //TODO: ejecutar action OnLose en el state Lose (hacer que se dejen de mover todas las ROADS)
-        }
-        else
-        {
-            stateMachine.ChangeState(CatState.TakeDamage);
-        }
-    }*/
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
         {
-            modelCat.TakeDamage();
+            SetLastObstacle(other.tag);
+            modelCat.TakeDamage(other.tag);
         }
     }
 
@@ -115,14 +81,13 @@ public class Cat : MonoBehaviour
     public void Lose()
     {
     }
-
+    
     private void OnDrawGizmos()
     {
         if (modelCat == null) return;
 
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f,
-            transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f, transform.position.z);
         Vector3 direction = Vector3.down * raycastDistance;
 
         Gizmos.color = modelCat.IsGrounded() ? Color.green : Color.red;
@@ -134,7 +99,7 @@ public class Cat : MonoBehaviour
     {
         Run,
         Jump,
-        Fall,
+        Slide,
         TakeDamage,
         Lose,
         Win
