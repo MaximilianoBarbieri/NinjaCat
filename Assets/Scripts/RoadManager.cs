@@ -4,12 +4,12 @@ using System.Collections.Generic;
 public class RoadManager : MonoBehaviour
 {
     public List<GameObject> roadPrefabs;
-    private Queue<GameObject> activeRoads = new(); 
+    private Queue<GameObject> activeRoads = new();
     public float roadLength = 50f;
-    private GameObject lastRoad;
+    public GameObject lastRoad { get; private set; }
 
     private int roadIndex;
-    private bool useRandomSpawn; 
+    private bool useRandomSpawn;
 
     void Start()
     {
@@ -60,11 +60,13 @@ public class RoadManager : MonoBehaviour
         lastRoad = newRoad;
 
         Debug.Log("Se activó un nuevo Road: " + newRoad.name + " en posición " + newPosition);
+
+        ItemManager.Instance.OnRequestRoad?.Invoke(newRoad);
     }
 
     public void DeactivateOldestRoad()
     {
-        if (activeRoads.Count <= 1) return; 
+        if (activeRoads.Count <= 1) return;
 
         GameObject oldRoad = activeRoads.Dequeue();
         oldRoad.SetActive(false);
