@@ -12,6 +12,9 @@ public abstract class Item : MonoBehaviour
     private Color _colorItem;
     private ParticleSystem _fx;
 
+    private MeshRenderer _view => GetComponent<MeshRenderer>();
+    private SphereCollider _collider => GetComponent<SphereCollider>();
+
     public Sprite SpriteItem => _spriteItem;
     public Color ColorItem => _colorItem;
     public ParticleSystem Fx => _fx;
@@ -24,7 +27,15 @@ public abstract class Item : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ProcessEffect();
+            DesactiveViewItem(false);
+
             Debug.Log("Cat acaba de tocar un Item!");
         }
+    }
+
+    private void DesactiveViewItem(bool value)
+    {
+        _collider.enabled = value;
+        _view.enabled = value;
     }
 }

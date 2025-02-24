@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReverseControls : Debuff
 {
-    private const float Duration = 5f; // Duración del debuff en segundos
+    private const float Duration = 2f; // Duración del debuff en segundos
 
     public override void ProcessEffect()
     {
