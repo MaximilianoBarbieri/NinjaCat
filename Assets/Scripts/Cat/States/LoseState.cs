@@ -16,19 +16,19 @@ public class LoseState : State
         switch (obstacleTag)
         {
             case TAG_OBSTACLE_CENTER:
-                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_CENTER);
                 break;
             case TAG_OBSTACLE_LOW:
-                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_TWO);
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_LOW);
                 break;
             case TAG_OBSTACLE_HIGH:
-                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_THREE);
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_HIGH);
                 break;
             case TAG_OBSTACLE_FALL:
-                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_FOUR);
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_FALL);
                 break;
             default:
-                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_CENTER);
                 break;
         }
 

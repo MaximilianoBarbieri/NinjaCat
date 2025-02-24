@@ -22,14 +22,14 @@ public static class Utils
     public const string PARAM_BOOL_SLIDE = "IsSliding";
     public const string PARAM_BOOL_DEAD = "IsDead";
     
-    public const string PARAM_TRIGGER_DAMAGE_ONE = "TakeDamageOne";
-    public const string PARAM_TRIGGER_DAMAGE_TWO = "TakeDamageTwo";
-    public const string PARAM_TRIGGER_DAMAGE_THREE = "TakeDamageThree";
+    public const string PARAM_TRIGGER_DAMAGE_CENTER = "TakeDamageCenter";
+    public const string PARAM_TRIGGER_DAMAGE_LOW = "TakeDamageLow";
+    public const string PARAM_TRIGGER_DAMAGE_HIGH = "TakeDamageHigh";
     
-    public const string PARAM_TRIGGER_DEAD_ONE = "DeadOne";
-    public const string PARAM_TRIGGER_DEAD_TWO = "DeadTwo";
-    public const string PARAM_TRIGGER_DEAD_THREE = "DeadThree";
-    public const string PARAM_TRIGGER_DEAD_FOUR = "DeadFour";
+    public const string PARAM_TRIGGER_DEAD_CENTER = "DeadCenter";
+    public const string PARAM_TRIGGER_DEAD_LOW = "DeadLow";
+    public const string PARAM_TRIGGER_DEAD_HIGH = "DeadHigh";
+    public const string PARAM_TRIGGER_DEAD_FALL = "DeadFall";
     
     public const string PARAM_TRIGGER_DEAD_WIN = "Win";
     
