@@ -1,11 +1,14 @@
 public static class Utils
 {
+    //TAGS
     public const string TAG_PLAYER = "Player";
     public const string TAG_OBSTACLE = "Obstacle";
     public const string TAG_GROUND = "Ground";
 
+    //LAYERS
     public const string LAYER_GROUND = "Ground";
 
+    //PARAMETERS
     public const int INITIAL_LIFE = 3;
     public const float JUMP_FORCE = 10f;
 
@@ -21,5 +24,8 @@ public static class Utils
     public const string PARAM_TRIGGER_DEAD_THREE = "DeadThree";
     public const string PARAM_TRIGGER_DEAD_FOUR = "DeadFour";
     public const string PARAM_TRIGGER_DEAD_WIN = "Win";
-
+    
+    //AXIS RAW
+    public const string AXIS_RAW_HORIZONTAL = "Horizontal";
+    public const string AXIS_RAW_VERTICAL = "Vertical";
 }

@@ -47,6 +47,7 @@ public class Cat : MonoBehaviour
 
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
+        stateMachine.AddState(CatState.Slide, new SlideState(this));
         stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
         stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
         stateMachine.AddState(CatState.Win, new WinState(this));
@@ -111,6 +112,7 @@ public class Cat : MonoBehaviour
     {
         Run,
         Jump,
+        Slide,
         TakeDamage,
         Lose,
         Win

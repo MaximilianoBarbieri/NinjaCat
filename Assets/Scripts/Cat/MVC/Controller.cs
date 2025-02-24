@@ -7,16 +7,17 @@ public class Controller
 
     public void ControllerUpdate()
     {
-        if (_cat.modelCat.IsGrounded())
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _cat.stateMachine.ChangeState(Cat.CatState.Jump);
-            }
-            else
-            {
-                _cat.stateMachine.ChangeState(Cat.CatState.Run);
-            }
+            _cat.stateMachine.ChangeState(Cat.CatState.Jump);
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Slide);
+        }
+        else
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Run);
         }
     }
 }
