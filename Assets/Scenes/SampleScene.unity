@@ -866,9 +866,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - {fileID: 1165691749929217255, guid: 864158bb43eed15498c5aaf6a1ac8778, type: 3}
+  - {fileID: 4316575269620869151, guid: 36620109e10804244ad87bab0171fd0d, type: 3}
   - {fileID: 2077843163229769759, guid: d81dccb252ae16d4ca93b0626d4f4b54, type: 3}
   - {fileID: 8962285662528227238, guid: 5c32bc64a4c6c0c499b72ccb58cc342e, type: 3}
-  - {fileID: 4316575269620869151, guid: 36620109e10804244ad87bab0171fd0d, type: 3}
   Coin: {fileID: 3617271861915750165, guid: 7e7bb4572024a6f4db0800280b4868cf, type: 3}
 --- !u!4 &2083704019
 Transform:

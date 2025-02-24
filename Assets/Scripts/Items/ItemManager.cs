@@ -45,14 +45,12 @@ public class ItemManager : MonoBehaviour
 
     private void RequestItem(GameObject road)
     {
-        // Encontrar todos los puntos de spawn
         List<Transform> spawnPoints = new List<Transform>();
 
         foreach (Transform child in road.GetComponentsInChildren<Transform>())
         {
-            if (child.name == "SpawnItemPoint")
+            if (child.name == Utils.NAME_SPAWNPOINT)
             {
-                // Eliminar cualquier item existente en este punto de spawn
                 foreach (Transform existingItem in child)
                 {
                     Destroy(existingItem.gameObject);
@@ -62,13 +60,10 @@ public class ItemManager : MonoBehaviour
             }
         }
 
-        // Verificar que haya spawn points disponibles
         if (spawnPoints.Count == 0 || items.Count == 0) return;
 
-        // Elegir aleatoriamente 2 spawn points
         List<Transform> selectedSpawnPoints = spawnPoints.OrderBy(x => UnityEngine.Random.value).Take(2).ToList();
 
-        // Instanciar 2 items aleatorios en los puntos seleccionados
         foreach (Transform spawnPoint in selectedSpawnPoints)
         {
             Item randomItem = items[UnityEngine.Random.Range(0, items.Count)];

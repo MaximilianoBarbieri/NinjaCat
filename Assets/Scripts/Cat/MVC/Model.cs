@@ -12,7 +12,13 @@ public class Model
 
     public Model(Cat cat) => _cat = cat;
 
-    public void Move(float input) => _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
+    public void Move(float input)
+    {
+        _cat.transform.Translate(
+            new Vector3((ItemManager.IsReverseControls
+                ? -input
+                : input) * _cat.Speed * Time.deltaTime, 0, 0));
+    }
 
     public void Jump()
     {
@@ -28,7 +34,8 @@ public class Model
     public bool IsGrounded()
     {
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f, _cat.transform.position.z);
+        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f,
+            _cat.transform.position.z);
 
         return Physics.Raycast(origin, Vector3.down, raycastDistance, _groundLayer);
     }
@@ -57,6 +64,4 @@ public class Model
     private void CollectNerf()
     {
     }
-    
-    
 }

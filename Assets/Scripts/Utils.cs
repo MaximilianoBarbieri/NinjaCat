@@ -7,13 +7,14 @@ public static class Utils
     public const string TAG_OBSTACLE_LOW = "ObstacleLow";
     public const string TAG_OBSTACLE_HIGH = "ObstacleHigh";
     public const string TAG_OBSTACLE_FALL = "ObstacleFall";
-
+    
     //LAYERS
     public const string LAYER_GROUND = "Ground";
     public const string LAYER_OBSTACLE = "Obstacle";
 
     //PARAMETERS
     public const int INITIAL_LIFE = 3;
+    public const int MAX_LIFECOUNT = 3;
     public const float JUMP_FORCE = 10f;
 
     //ANIMATOR PARAMETERS
@@ -36,4 +37,7 @@ public static class Utils
     //AXIS RAW
     public const string AXIS_RAW_HORIZONTAL = "Horizontal";
     public const string AXIS_RAW_VERTICAL = "Vertical";
+    
+    //NAMES
+    public const string NAME_SPAWNPOINT = "SpawnItemPoint";
 }
