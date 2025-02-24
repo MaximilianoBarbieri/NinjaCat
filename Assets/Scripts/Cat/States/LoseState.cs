@@ -1,3 +1,4 @@
+using UnityEngine;
 using static Utils;
 
 public class LoseState : State
@@ -8,12 +9,31 @@ public class LoseState : State
 
     public override void OnEnter()
     {
-        //TODO: crear swith con tipo de muerte a ejecutar.
-        _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
-        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_TWO);
-        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_THREE);
-        //_cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_FOUR);
+        string obstacleTag = _cat.GetLastObstacle(); 
+
+        Debug.Log("Entrando en LoseState. Último obstáculo: " + obstacleTag);
+
+        switch (obstacleTag)
+        {
+            case TAG_OBSTACLE_CENTER:
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
+                break;
+            case TAG_OBSTACLE_LOW:
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_TWO);
+                break;
+            case TAG_OBSTACLE_HIGH:
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_THREE);
+                break;
+            case TAG_OBSTACLE_FALL:
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_FOUR);
+                break;
+            default:
+                _cat.viewCat.PLAY_ANIM_TRIGGER(PARAM_TRIGGER_DEAD_ONE);
+                break;
+        }
+
         //TODO: Action OnLose para ejecutar OnLoose en las clases correspondientes?
+        //_cat.OnLose?.Invoke(); // Detener los Roads al morir
     }
 
     public override void OnUpdate()

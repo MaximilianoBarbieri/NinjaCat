@@ -17,12 +17,16 @@ public class Cat : MonoBehaviour
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
     
+    private string lastObstacleTag;
+    
     public Action OnJump;
 
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
     public float JumpDuration => _jumpDuration;
     public int LifeCount => _lifeCount;
+    public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
+    public string GetLastObstacle() => lastObstacleTag;
     
 
     private void Start()
@@ -61,29 +65,12 @@ public class Cat : MonoBehaviour
         controllerCat.ControllerUpdate();
     }
 
-    /*public void TakeDamage()
-    {
-        _lifeCount--; 
-
-        Debug.Log("Cat recibió daño, vidas restantes: " + _lifeCount);
-
-        if (_lifeCount <= 0)
-        {
-            stateMachine.ChangeState(CatState.Lose);
-            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
-            //TODO: ejecutar action OnLose en el state Lose (hacer que se dejen de mover todas las ROADS)
-        }
-        else
-        {
-            stateMachine.ChangeState(CatState.TakeDamage);
-        }
-    }*/
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(TAG_OBSTACLE)) 
+        if (other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
         {
-            modelCat.TakeDamage();
+            SetLastObstacle(other.tag);
+            modelCat.TakeDamage(other.tag);
         }
     }
 
