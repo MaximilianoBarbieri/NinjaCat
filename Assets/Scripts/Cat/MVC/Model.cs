@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using static Utils;
 
 public class Model
 {
@@ -10,7 +8,7 @@ public class Model
     public bool isGround => IsGrounded();
     public bool isJumping;
 
-    private readonly int _groundLayer = LayerMask.GetMask("Ground");
+    private readonly int _groundLayer = LayerMask.GetMask(LAYER_GROUND);
 
     public Model(Cat cat) => _cat = cat;
 
@@ -18,10 +16,10 @@ public class Model
 
     public void Jump()
     {
+        if (!IsGrounded()) return; // Evita que salte si no está en el suelo
+
         var velocity = _cat.catRigidBody.velocity;
-
         velocity = new Vector3(velocity.x, 0f, velocity.z);
-
         _cat.catRigidBody.velocity = velocity;
 
         _cat.catRigidBody.AddForce(Vector3.up * _cat.JumpForce, ForceMode.Impulse);
@@ -29,12 +27,27 @@ public class Model
 
     public bool IsGrounded()
     {
-        return Physics.OverlapSphere(_cat.transform.position, 0.1f, _groundLayer).Length > 0;
+        float raycastDistance = 0.2f;
+        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f, _cat.transform.position.z);
+
+        return Physics.Raycast(origin, Vector3.down, raycastDistance, _groundLayer);
     }
 
 
-    private void TakeDamage()
+    public void TakeDamage(string obstacleTag)
     {
+        _cat._lifeCount--;
+        Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
+
+        if (_cat._lifeCount <= 0)
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Lose);
+            Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
+        }
+        else
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
+        }
     }
 
     private void CollectPowerUp()
@@ -44,4 +57,6 @@ public class Model
     private void CollectNerf()
     {
     }
+    
+    
 }

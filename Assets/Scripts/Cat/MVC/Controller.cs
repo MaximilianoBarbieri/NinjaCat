@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Controller
@@ -9,16 +7,17 @@ public class Controller
 
     public void ControllerUpdate()
     {
-        if (_cat.modelCat.IsGrounded())
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _cat.stateMachine.ChangeState(Cat.CatState.Jump);
-            }
-            else if (Input.GetAxisRaw("Horizontal") != 0 && _cat.modelCat.isJumping)
-            {
-                _cat.stateMachine.ChangeState(Cat.CatState.Run);
-            }
+            _cat.stateMachine.ChangeState(Cat.CatState.Jump);
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Slide);
+        }
+        else
+        {
+            _cat.stateMachine.ChangeState(Cat.CatState.Run);
         }
     }
 }

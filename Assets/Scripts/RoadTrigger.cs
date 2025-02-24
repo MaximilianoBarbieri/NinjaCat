@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Utils;
 
 public class RoadTrigger : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class RoadTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(TAG_PLAYER))
         {
             RoadManager roadManager = FindObjectOfType<RoadManager>();
             if (roadManager == null) return;
