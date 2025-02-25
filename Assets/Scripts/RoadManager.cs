@@ -37,7 +37,6 @@ public class RoadManager : MonoBehaviour
             if (roadIndex >= roadPrefabs.Count)
             {
                 useRandomSpawn = true;
-                Debug.Log("Modo aleatorio activado.");
             }
         }
         else
@@ -58,9 +57,7 @@ public class RoadManager : MonoBehaviour
 
         activeRoads.Enqueue(newRoad);
         lastRoad = newRoad;
-
-        Debug.Log("Se activó un nuevo Road: " + newRoad.name + " en posición " + newPosition);
-
+        
         ItemManager.Instance.OnRequestRoad?.Invoke(newRoad);
     }
 
@@ -70,8 +67,6 @@ public class RoadManager : MonoBehaviour
 
         GameObject oldRoad = activeRoads.Dequeue();
         oldRoad.SetActive(false);
-
-        Debug.Log("Se desactivó el Road: " + oldRoad.name);
     }
 
     private GameObject GetInactiveRoad()

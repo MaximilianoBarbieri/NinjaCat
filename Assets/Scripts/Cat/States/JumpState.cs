@@ -15,9 +15,10 @@ public class JumpState : State
 
     public override void OnUpdate()
     {
-        _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
+        //Debug.Log("JumpState");
 
-        Debug.Log("MOVE DESDE JUMP STATE");
+        if (Input.GetAxisRaw("Horizontal") != 0) _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
+        //TODO: verificar si toca el suelo para pasar a RUN
     }
 
     public override void OnExit()

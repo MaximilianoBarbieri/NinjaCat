@@ -16,6 +16,16 @@ public static class Utils
     public const int INITIAL_LIFE = 3;
     public const int MAX_LIFECOUNT = 3;
     public const float JUMP_FORCE = 10f;
+    
+    //STATES CLASS
+    internal const string STATE_RUN = "RunState";
+    internal const string STATE_JUMP = "JumpState";
+    internal const string STATE_FALL = "FallState";
+    internal const string STATE_SLIDE = "SlideState";
+    internal const string STATE_WIN = "WinState";
+    internal const string STATE_LOSE = "LoseState";
+    internal const string STATE_DAMAGE = "TakeDamageState";
+    internal const string NO_STATE = "No hay estado";
 
     //ANIMATOR PARAMETERS
     public const string PARAM_BOOL_RUN = "IsRunning";
