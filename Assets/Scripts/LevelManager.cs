@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class LevelManager : MonoBehaviour
 {
-    private Cat _cat;
+    private Cat _cat => FindObjectOfType<Cat>();
 
     private float _timer;
 
@@ -19,13 +19,13 @@ public class LevelManager : MonoBehaviour
         ItemManager.Instance.OnModifyLife += GetValueLife;
     }
 
-    private void GetValueLife(int value)
+    private void GetValueLife(int? amount = null)
     {
         life = _cat.LifeCount;
         UIManager.OnRefreshLife?.Invoke(life);
     }
 
-    private void GetValueCoins(int value)
+    private void GetValueCoins(int? amount = null)
     {
         coins = _cat.Coins;
         UIManager.OnRefreshCoins?.Invoke(coins);
