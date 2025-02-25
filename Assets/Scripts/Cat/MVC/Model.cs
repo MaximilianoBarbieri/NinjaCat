@@ -56,6 +56,18 @@ public class Model
             _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
         }
     }
+    
+    public void ChangeToSlideCollider()
+    {
+        _cat.catCollider.height = _cat.originalHeight / 2f; // Reducir a la mitad
+        _cat.catCollider.center = new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2f, _cat.catCollider.center.z); // Ajustar la posición
+    }
+
+    public void ResetCollider()
+    {
+        _cat.catCollider.height = _cat.originalHeight;
+        _cat.catCollider.center = _cat.originalCenter;
+    }
 
     private void CollectPowerUp()
     {

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using static Utils;
 
@@ -18,9 +17,12 @@ public class Cat : MonoBehaviour
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
     
+    public CapsuleCollider catCollider { get; private set; }
+    public float originalHeight { get; private set; }
+    public Vector3 originalCenter { get; private set; }
+    
     private string lastObstacleTag;
     
-    public Action OnJump;
 
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
@@ -36,7 +38,7 @@ public class Cat : MonoBehaviour
         get => _coins;
         set => _coins = value;
     }
-
+    
     public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
     public string GetLastObstacle() => lastObstacleTag;
     
@@ -45,6 +47,9 @@ public class Cat : MonoBehaviour
     {
         catRigidBody = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
+        catCollider = GetComponent<CapsuleCollider>();
+        originalHeight = catCollider.height;
+        originalCenter = catCollider.center;
 
         InitializedMVC();
         InitializedStateMachine();

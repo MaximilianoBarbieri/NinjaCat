@@ -14,8 +14,7 @@ public class FallState : State
     {
         _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
         
-        if (_cat.modelCat.IsGrounded())
-            _cat.stateMachine.ChangeState(Cat.CatState.Run);
+        if (_cat.modelCat.IsGrounded()) _cat.stateMachine.ChangeState(Cat.CatState.Run);
     }
 
     public override void OnExit()
