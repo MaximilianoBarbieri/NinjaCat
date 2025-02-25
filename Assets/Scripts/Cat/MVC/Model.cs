@@ -12,7 +12,13 @@ public class Model
 
     public Model(Cat cat) => _cat = cat;
 
-    public void Move(float input) => _cat.transform.Translate(new Vector3(input * _cat.Speed * Time.deltaTime, 0, 0));
+    public void Move(float input)
+    {
+        _cat.transform.Translate(
+            new Vector3((ItemManager.IsReverseControls
+                ? -input
+                : input) * _cat.Speed * Time.deltaTime, 0, 0));
+    }
 
     public void Jump()
     {
@@ -28,7 +34,8 @@ public class Model
     public bool IsGrounded()
     {
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f, _cat.transform.position.z);
+        Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f,
+            _cat.transform.position.z);
 
         return Physics.Raycast(origin, Vector3.down, raycastDistance, _groundLayer);
     }
@@ -49,6 +56,18 @@ public class Model
             _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
         }
     }
+    
+    public void ChangeToSlideCollider()
+    {
+        _cat.catCollider.height = _cat.originalHeight / 2f; // Reducir a la mitad
+        _cat.catCollider.center = new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2f, _cat.catCollider.center.z); // Ajustar la posición
+    }
+
+    public void ResetCollider()
+    {
+        _cat.catCollider.height = _cat.originalHeight;
+        _cat.catCollider.center = _cat.originalCenter;
+    }
 
     private void CollectPowerUp()
     {
@@ -57,6 +76,4 @@ public class Model
     private void CollectNerf()
     {
     }
-    
-    
 }

@@ -14,6 +14,8 @@ public class RunState : State
 
     public override void OnUpdate()
     {
+        //Debug.Log("RunState");
+
         if (Input.GetAxisRaw("Horizontal") != 0) _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
     }
 
