@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static Utils;
 
@@ -23,7 +24,7 @@ public class Cat : MonoBehaviour
     public Vector3 originalCenter { get; private set; }
 
     private string lastObstacleTag;
-
+    
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
 
@@ -94,7 +95,7 @@ public class Cat : MonoBehaviour
         if (!_isInvulnerable && other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
         {
             SetLastObstacle(other.tag);
-            modelCat.TakeDamage(other.tag);
+            modelCat.TakeDamage();
         }
     }
 

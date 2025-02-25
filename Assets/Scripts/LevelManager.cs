@@ -1,7 +1,5 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,17 +9,16 @@ public class LevelManager : MonoBehaviour
     private int coins;
     private int life;
 
-    private bool isAlive;
+    private bool isGameOver;
 
     private string Distance => _timer.ToString("0.0") + "KM";
 
     private void Start()
     {
-        isAlive = true;
-
         ItemManager.Instance.OnModifyCoins += GetValueCoins;
-
         ItemManager.Instance.OnModifyLife += GetValueLife;
+        
+        UIManager.OnFinishGame += HandleGameOver;
     }
 
     private void GetValueLife(int? amount = null)
@@ -38,15 +35,22 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (_cat._lifeCount <= 0 && isAlive)
-        {
-            UIManager.OnFinishGame?.Invoke();
-            isAlive = false;
-        }
-        else if (_cat._lifeCount > 0)
-        {
-            UIManager.OnRefreshTimer?.Invoke(_timer += Time.deltaTime);
-            UIManager.OnRefreshDistance?.Invoke(Distance);
-        }
+        if (isGameOver) return; // 🔥 Evitar actualizaciones después del Game Over
+
+        UIManager.OnRefreshTimer?.Invoke(_timer += Time.deltaTime);
+        UIManager.OnRefreshDistance?.Invoke(Distance);
+    }
+    
+    private void HandleGameOver()
+    {
+        isGameOver = true;
+        Debug.Log("Ahora LevelManager ha sido detenido.");
+    }
+
+    private void OnDestroy()
+    {
+        UIManager.OnFinishGame -= HandleGameOver;
+        ItemManager.Instance.OnModifyCoins -= GetValueCoins;
+        ItemManager.Instance.OnModifyLife -= GetValueLife;
     }
 }

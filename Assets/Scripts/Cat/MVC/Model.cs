@@ -42,15 +42,12 @@ public class Model
     }
 
 
-    public void TakeDamage(string obstacleTag)
+    public void TakeDamage()
     {
-        if (_cat.IsInvulnerable) return; // No recibe daño si es invulnerable
-        
         _cat._lifeCount--;
 
         UIManager.OnRefreshLife?.Invoke(_cat._lifeCount);
-
-
+        
         if (_cat._lifeCount <= 0)
         {
             Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
@@ -60,7 +57,6 @@ public class Model
         {
             Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
             _cat.StartCoroutine(InvulnerabilityRoutine());
-            // _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
         }
     }
     

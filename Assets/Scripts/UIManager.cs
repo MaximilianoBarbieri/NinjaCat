@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,22 +54,18 @@ public class UIManager : MonoBehaviour
         firstHearth.gameObject.SetActive(value >= 1);
         secondHearth.gameObject.SetActive(value >= 2);
         threeHearth.gameObject.SetActive(value >= 3);
-
-        if (value <= 0)
-            FinishGame();
     }
-
-    private void FinishGame()
-    {
-        panelStatistics.SetActive(true);
-
-        finalStats.text = $"Monedas recogidas: {coins.text}" +
-                          $"\nTiempo: {timer.text}s" +
-                          $"\nDistancia recorrida: {distance.text}m";
-    }
-
+    
     private void Start()
     {
+        OnRefreshCoins += RefreshCoins;
+        OnRefreshTimer += RefreshTimer;
+        OnRefreshLife += RefreshLife;
+        OnRefreshDistance += RefreshDistance;
+        OnRefreshCurrentItem += RefreshItem;
+        
+        OnFinishGame += StartFinishGame;
+        
         if (buttonReturnMenu != null)
             buttonReturnMenu.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 0));
 
@@ -78,17 +75,32 @@ public class UIManager : MonoBehaviour
         if (buttonReplay != null)
             buttonReplay.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
+    
+    private void StartFinishGame()
+    {
+        StartCoroutine(FinishGame());
+    }
+    
+    private IEnumerator FinishGame()
+    {
+        yield return new WaitForSeconds(3f); // Timepo que toma que termine la animacion de muerte
+        
+        panelStatistics.SetActive(true);
+
+        finalStats.text = $"Monedas recogidas: {coins.text}" +
+                          $"\nTiempo: {timer.text}s" +
+                          $"\nDistancia recorrida: {distance.text}m";
+    }
 
     private void OnEnable()
     {
-        OnRefreshCoins += RefreshCoins;
-        OnRefreshTimer += RefreshTimer;
-        OnRefreshLife += RefreshLife;
-        OnRefreshDistance += RefreshDistance;
-
-        OnFinishGame += FinishGame;
-
-        OnRefreshCurrentItem += RefreshItem;
+        //OnRefreshCoins += RefreshCoins;
+        //OnRefreshTimer += RefreshTimer;
+        //OnRefreshLife += RefreshLife;
+        //OnRefreshDistance += RefreshDistance;
+//
+//
+        //OnRefreshCurrentItem += RefreshItem;
     }
 
     private void OnDisable()
@@ -98,7 +110,7 @@ public class UIManager : MonoBehaviour
         OnRefreshLife -= RefreshLife;
         OnRefreshDistance -= RefreshDistance;
 
-        OnFinishGame -= FinishGame;
+        OnFinishGame -= StartFinishGame;
 
         OnRefreshCurrentItem -= RefreshItem;
     }

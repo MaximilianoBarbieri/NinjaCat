@@ -22,6 +22,8 @@ public class RoadManager : MonoBehaviour
         lastRoad = firstRoad;
 
         roadIndex++;
+        
+        UIManager.OnFinishGame += StopAllRoads;
     }
 
     public void ActivateNewRoad()
@@ -78,5 +80,16 @@ public class RoadManager : MonoBehaviour
 
         // road aleatorio
         return inactiveRoads[Random.Range(0, inactiveRoads.Count)];
+    }
+    
+    private void StopAllRoads()
+    {
+        Debug.Log("Deteniendo todos los Roads porque el personaje ha muerto.");
+        enabled = false; 
+    }
+
+    private void OnDestroy()
+    {
+        UIManager.OnFinishGame -= StopAllRoads; 
     }
 }

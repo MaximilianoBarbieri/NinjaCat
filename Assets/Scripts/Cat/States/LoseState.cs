@@ -32,8 +32,8 @@ public class LoseState : State
                 break;
         }
 
-        //TODO: Action OnLose para ejecutar OnLoose en las clases correspondientes?
-        //_cat.OnLose?.Invoke(); // Detener los Roads al morir
+        Debug.Log("Ejecutando OnFinishGame...");
+        UIManager.OnFinishGame?.Invoke();
     }
 
     public override void OnUpdate()
