@@ -11,8 +11,8 @@ public class ItemManager : MonoBehaviour
     private Cat _cat => FindObjectOfType<Cat>();
 
     public Action<bool> OnModifyControls;
-    public Action<int> OnModifyCoins;
-    public Action<int> OnModifyLife;
+    public Action<int?> OnModifyCoins;
+    public Action<int?> OnModifyLife;
 
     [SerializeField] private List<Item> items = new();
     [SerializeField] private Coin Coin;
@@ -38,9 +38,9 @@ public class ItemManager : MonoBehaviour
 
         OnModifyControls = (b) => IsReverseControls = b;
 
-        OnModifyCoins = (i) => _cat.Coins += i;
+        OnModifyCoins = (i) => _cat.Coins += i ?? 0;
 
-        OnModifyLife = (i) => _cat.LifeCount += i;
+        OnModifyLife = (i) => _cat.LifeCount += i ?? 0;
     }
 
     private void RequestItem(GameObject road)

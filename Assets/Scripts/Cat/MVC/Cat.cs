@@ -9,7 +9,6 @@ public class Cat : MonoBehaviour
 
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private float _jumpDuration;
     public int _lifeCount = INITIAL_LIFE; 
     private int _coins; 
     
@@ -23,10 +22,8 @@ public class Cat : MonoBehaviour
     
     private string lastObstacleTag;
     
-
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
-    public float JumpDuration => _jumpDuration;
     public int LifeCount
     {
         get => _lifeCount;
