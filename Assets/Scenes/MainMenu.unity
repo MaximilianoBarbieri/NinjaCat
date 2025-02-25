@@ -413,8 +413,52 @@ PrefabInstance:
     - {fileID: 1550040021656258655, guid: 455966eaff7225a4e94bfddd0ca7ae04, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1516930751265127266, guid: 455966eaff7225a4e94bfddd0ca7ae04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 672090549}
   m_SourcePrefab: {fileID: 100100000, guid: 455966eaff7225a4e94bfddd0ca7ae04, type: 3}
+--- !u!1 &672090547 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1516930751265127266, guid: 455966eaff7225a4e94bfddd0ca7ae04, type: 3}
+  m_PrefabInstance: {fileID: 672090546}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &672090548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8459354132868607811, guid: 455966eaff7225a4e94bfddd0ca7ae04, type: 3}
+  m_PrefabInstance: {fileID: 672090546}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &672090549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672090547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2de249fd8c04f45a08456d3e73f841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: {fileID: 0}
+  coins: {fileID: 0}
+  distance: {fileID: 0}
+  finalStats: {fileID: 0}
+  currentItem: {fileID: 0}
+  currentItemColor: {fileID: 0}
+  firstHearth: {fileID: 0}
+  secondHearth: {fileID: 0}
+  threeHearth: {fileID: 0}
+  panelStatistics: {fileID: 0}
+  buttonReturnMenu: {fileID: 0}
+  buttonPlay: {fileID: 672090548}
+  buttonReplay: {fileID: 0}
 --- !u!1 &1118380213
 GameObject:
   m_ObjectHideFlags: 0

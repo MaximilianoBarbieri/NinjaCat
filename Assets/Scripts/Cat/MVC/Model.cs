@@ -44,6 +44,9 @@ public class Model
     public void TakeDamage(string obstacleTag)
     {
         _cat._lifeCount--;
+
+        UIManager.OnRefreshLife?.Invoke(_cat._lifeCount);
+
         Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
 
         if (_cat._lifeCount <= 0)
@@ -56,11 +59,13 @@ public class Model
             _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
         }
     }
-    
+
     public void ChangeToSlideCollider()
     {
         _cat.catCollider.height = _cat.originalHeight / 2f; // Reducir a la mitad
-        _cat.catCollider.center = new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2f, _cat.catCollider.center.z); // Ajustar la posición
+        _cat.catCollider.center =
+            new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2f,
+                _cat.catCollider.center.z); // Ajustar la posición
     }
 
     public void ResetCollider()

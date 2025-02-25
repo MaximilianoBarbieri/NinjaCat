@@ -9,21 +9,22 @@ public class Cat : MonoBehaviour
 
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-    public int _lifeCount = INITIAL_LIFE; 
-    private int _coins; 
-    
+    public int _lifeCount = INITIAL_LIFE;
+    private int _coins;
+
     public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
-    
+
     public CapsuleCollider catCollider { get; private set; }
     public float originalHeight { get; private set; }
     public Vector3 originalCenter { get; private set; }
-    
+
     private string lastObstacleTag;
-    
+
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
+
     public int LifeCount
     {
         get => _lifeCount;
@@ -35,10 +36,10 @@ public class Cat : MonoBehaviour
         get => _coins;
         set => _coins = value;
     }
-    
+
     public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
     public string GetLastObstacle() => lastObstacleTag;
-    
+
 
     private void Start()
     {
@@ -95,13 +96,14 @@ public class Cat : MonoBehaviour
     public void Lose()
     {
     }
-    
+
     private void OnDrawGizmos()
     {
         if (modelCat == null) return;
 
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f, transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f,
+            transform.position.z);
         Vector3 direction = Vector3.down * raycastDistance;
 
         Gizmos.color = modelCat.IsGrounded() ? Color.green : Color.red;

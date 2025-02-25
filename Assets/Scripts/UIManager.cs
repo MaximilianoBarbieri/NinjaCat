@@ -1,9 +1,7 @@
 using System;
-using System.Net.Mime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -12,9 +10,11 @@ public class UIManager : MonoBehaviour
 
     private LevelManager _levelManager => FindObjectOfType<LevelManager>();
 
-    [SerializeField] private TextMeshPro timer;
-    [SerializeField] private TextMeshPro coins;
-    [SerializeField] private TextMeshPro distance;
+    [SerializeField] private TextMeshProUGUI timer;
+    [SerializeField] private TextMeshProUGUI coins;
+    [SerializeField] private TextMeshProUGUI distance;
+
+    [SerializeField] private TextMeshProUGUI finalStats;
 
     [SerializeField] private Image currentItem;
     [SerializeField] private Image currentItemColor;
@@ -36,8 +36,10 @@ public class UIManager : MonoBehaviour
 
     public static Action<Image, Color> OnRefreshCurrentItem;
 
+    public static Action OnFinishGame;
+
     private void RefreshCoins(int value) => coins.text = $"{value}";
-    private void RefreshTimer(float value) => timer.text = $"{value}";
+    private void RefreshTimer(float value) => timer.text = Mathf.FloorToInt(value).ToString();
     private void RefreshDistance(string value) => distance.text = value;
 
     private void RefreshItem(Image image, Color color)
@@ -56,14 +58,25 @@ public class UIManager : MonoBehaviour
             FinishGame();
     }
 
-    private void FinishGame() => panelStatistics.SetActive(true);
+    private void FinishGame()
+    {
+        panelStatistics.SetActive(true);
+
+        finalStats.text = $"Monedas recogidas: {coins.text}" +
+                          $"\nTiempo: {timer.text}s" +
+                          $"\nDistancia recorrida: {distance.text}m";
+    }
 
     private void Start()
     {
-        buttonReturnMenu.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 0));
-        buttonPlay.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 1));
+        if (buttonReturnMenu != null)
+            buttonReturnMenu.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 0));
 
-        buttonReplay.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
+        if (buttonPlay != null)
+            buttonPlay.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 1));
+
+        if (buttonReplay != null)
+            buttonReplay.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
     private void OnEnable()
@@ -72,6 +85,8 @@ public class UIManager : MonoBehaviour
         OnRefreshTimer += RefreshTimer;
         OnRefreshLife += RefreshLife;
         OnRefreshDistance += RefreshDistance;
+
+        OnFinishGame += FinishGame;
 
         OnRefreshCurrentItem += RefreshItem;
     }
@@ -82,6 +97,8 @@ public class UIManager : MonoBehaviour
         OnRefreshTimer -= RefreshTimer;
         OnRefreshLife -= RefreshLife;
         OnRefreshDistance -= RefreshDistance;
+
+        OnFinishGame -= FinishGame;
 
         OnRefreshCurrentItem -= RefreshItem;
     }
