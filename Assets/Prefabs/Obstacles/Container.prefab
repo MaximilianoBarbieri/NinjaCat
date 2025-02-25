@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8953479145414973620}
   - component: {fileID: -1109802026751041283}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Container
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

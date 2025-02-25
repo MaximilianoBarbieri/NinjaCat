@@ -425,7 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604005389914477860}
   - component: {fileID: -1878629737904084274}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ductx3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

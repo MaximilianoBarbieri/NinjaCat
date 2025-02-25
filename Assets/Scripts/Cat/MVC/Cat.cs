@@ -11,11 +11,13 @@ public class Cat : MonoBehaviour
     [SerializeField] private float _jumpForce;
     public int _lifeCount = INITIAL_LIFE;
     private int _coins;
+    private bool _isInvulnerable;
 
     public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
-
+    [SerializeField] public Transform viewTransform;
+    
     public CapsuleCollider catCollider { get; private set; }
     public float originalHeight { get; private set; }
     public Vector3 originalCenter { get; private set; }
@@ -37,6 +39,12 @@ public class Cat : MonoBehaviour
         set => _coins = value;
     }
 
+    public bool IsInvulnerable
+    {
+        get => _isInvulnerable;
+        set => _isInvulnerable = value;
+    }
+
     public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
     public string GetLastObstacle() => lastObstacleTag;
 
@@ -48,6 +56,8 @@ public class Cat : MonoBehaviour
         catCollider = GetComponent<CapsuleCollider>();
         originalHeight = catCollider.height;
         originalCenter = catCollider.center;
+        
+        if (viewTransform == null) Debug.LogError("No se encontró el objeto View dentro del Cat.");
 
         InitializedMVC();
         InitializedStateMachine();
@@ -67,7 +77,6 @@ public class Cat : MonoBehaviour
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
         stateMachine.AddState(CatState.Slide, new SlideState(this));
-        stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
         stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
         stateMachine.AddState(CatState.Win, new WinState(this));
 
@@ -82,7 +91,7 @@ public class Cat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
+        if (!_isInvulnerable && other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
         {
             SetLastObstacle(other.tag);
             modelCat.TakeDamage(other.tag);
@@ -116,7 +125,6 @@ public class Cat : MonoBehaviour
         Run,
         Jump,
         Slide,
-        TakeDamage,
         Lose,
         Win
     }

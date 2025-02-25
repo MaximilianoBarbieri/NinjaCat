@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static Utils;
 
@@ -43,22 +44,62 @@ public class Model
 
     public void TakeDamage(string obstacleTag)
     {
+        if (_cat.IsInvulnerable) return; // No recibe daño si es invulnerable
+        
         _cat._lifeCount--;
 
         UIManager.OnRefreshLife?.Invoke(_cat._lifeCount);
 
-        Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
 
         if (_cat._lifeCount <= 0)
         {
-            _cat.stateMachine.ChangeState(Cat.CatState.Lose);
             Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
+            _cat.stateMachine.ChangeState(Cat.CatState.Lose);
         }
         else
         {
-            _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
+            Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
+            _cat.StartCoroutine(InvulnerabilityRoutine());
+            // _cat.stateMachine.ChangeState(Cat.CatState.TakeDamage);
         }
     }
+    
+    private IEnumerator InvulnerabilityRoutine()
+    {
+        _cat.IsInvulnerable = true;
+
+        float blinkDuration = 2f;
+        float blinkInterval = 0.1f;
+        float elapsedTime = 0f;
+        
+        SkinnedMeshRenderer[] meshes = _cat.viewTransform.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        if (meshes.Length == 0)
+        {
+            Debug.LogError("No se encontraron SkinnedMeshRenderers en View.");
+            yield break;
+        }
+        
+        while (elapsedTime < blinkDuration)
+        {
+            foreach (SkinnedMeshRenderer mesh in meshes)
+            {
+                mesh.enabled = !mesh.enabled;
+            }
+        
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval;
+        }
+
+        // Al terminar hacerlas todas visibles
+        foreach (SkinnedMeshRenderer mesh in meshes)
+        {
+            mesh.enabled = true;
+        }
+
+        _cat.IsInvulnerable = false;
+    }
+
 
     public void ChangeToSlideCollider()
     {

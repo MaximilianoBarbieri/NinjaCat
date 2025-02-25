@@ -33,10 +33,6 @@ public static class Utils
     public const string PARAM_BOOL_SLIDE = "IsSliding";
     public const string PARAM_BOOL_DEAD = "IsDead";
     
-    public const string PARAM_TRIGGER_DAMAGE_CENTER = "TakeDamageCenter";
-    public const string PARAM_TRIGGER_DAMAGE_LOW = "TakeDamageLow";
-    public const string PARAM_TRIGGER_DAMAGE_HIGH = "TakeDamageHigh";
-    
     public const string PARAM_TRIGGER_DEAD_CENTER = "DeadCenter";
     public const string PARAM_TRIGGER_DEAD_LOW = "DeadLow";
     public const string PARAM_TRIGGER_DEAD_HIGH = "DeadHigh";

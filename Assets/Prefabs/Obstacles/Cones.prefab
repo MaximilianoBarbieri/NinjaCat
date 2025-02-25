@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2801919644052150073}
   - component: {fileID: -475868788377642264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cones
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

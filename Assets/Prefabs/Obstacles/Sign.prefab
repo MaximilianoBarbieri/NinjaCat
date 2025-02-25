@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3007133444352471866}
   - component: {fileID: -164701358033670145}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Sign
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

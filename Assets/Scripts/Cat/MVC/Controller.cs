@@ -54,7 +54,7 @@ public class Controller
         return _cat.stateMachine.getCurrentState() switch
                {
                    STATE_JUMP => true,
-                   STATE_SLIDE => true,
+                   //STATE_SLIDE => true, No activar porque sino pasa a run mientras esta deslizando
                    STATE_DAMAGE => true,
                    _ => false
                };
