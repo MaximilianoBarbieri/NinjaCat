@@ -4,7 +4,7 @@ using static Utils;
 public class SlideState : State
 {
     private Cat _cat;
-    private float _slideDuration = 1.75f;
+    private float _slideDuration = 2f;
     private float _timer;
 
     public SlideState(Cat cat) => _cat = cat;

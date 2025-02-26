@@ -10,6 +10,7 @@ TagManager:
   - ObstacleFall
   - ObstacleCenter
   - Coin
+  - KillPlane
   layers:
   - Default
   - TransparentFX

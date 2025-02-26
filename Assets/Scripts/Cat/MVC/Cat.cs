@@ -18,13 +18,13 @@ public class Cat : MonoBehaviour
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
     [SerializeField] public Transform viewTransform;
-    
+
     public CapsuleCollider catCollider { get; private set; }
     public float originalHeight { get; private set; }
     public Vector3 originalCenter { get; private set; }
 
     private string lastObstacleTag;
-    
+
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
 
@@ -57,7 +57,7 @@ public class Cat : MonoBehaviour
         catCollider = GetComponent<CapsuleCollider>();
         originalHeight = catCollider.height;
         originalCenter = catCollider.center;
-        
+
         if (viewTransform == null) Debug.LogError("No se encontró el objeto View dentro del Cat.");
 
         InitializedMVC();
@@ -96,6 +96,12 @@ public class Cat : MonoBehaviour
         {
             SetLastObstacle(other.tag);
             modelCat.TakeDamage();
+        }
+
+        if (other.gameObject.CompareTag("KillPlane"))
+        {
+            _lifeCount = 0;
+            stateMachine.ChangeState(CatState.Lose);
         }
     }
 
