@@ -35,6 +35,7 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         OnRequestRoad += RequestItem;
+        OnRequestRoad += RequestCoins;
 
         OnModifyControls = (b) => IsReverseControls = b;
 
@@ -70,4 +71,27 @@ public class ItemManager : MonoBehaviour
             Instantiate(randomItem, spawnPoint.position, Quaternion.identity, spawnPoint);
         }
     }
+
+    private void RequestCoins(GameObject road)
+    {
+        foreach (Transform child in road.GetComponentsInChildren<Transform>())
+        {
+            if (child.name == "SpawnCoins")
+            {
+                // Eliminar todas las monedas existentes en el SpawnCoins
+                foreach (Transform existingCoin in child)
+                {
+                    Destroy(existingCoin.gameObject);
+                }
+
+                // Generar 5 monedas con una separación de 1 unidad en el eje Z
+                for (int i = 0; i < 5; i++)
+                {
+                    Vector3 spawnPosition = child.position + new Vector3(0, 0, i);
+                    Instantiate(Coin, spawnPosition, Quaternion.identity, child);
+                }
+            }
+        }
+    }
+
 }
