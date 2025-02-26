@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class ReverseControls : Debuff
 {
-    private const float Duration = 2f; // Duración del debuff en segundos
-
-    public override void ProcessEffect()
+    protected override void ProcessEffect()
     {
         StartCoroutine(ApplyReverseControls());
     }
@@ -17,7 +15,7 @@ public class ReverseControls : Debuff
         ItemManager.OnModifyControls?.Invoke(true);
 
         // Esperar la duración del debuff
-        yield return new WaitForSeconds(Duration);
+        yield return new WaitForSeconds(DurationEffect);
 
         // Restaurar controles normales
         ItemManager.OnModifyControls?.Invoke(false);

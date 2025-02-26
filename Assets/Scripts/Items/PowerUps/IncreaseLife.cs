@@ -5,9 +5,9 @@ using static Utils;
 
 public class IncreaseLife : Buff
 {
-    public override void ProcessEffect()
+    protected override void ProcessEffect()
     {
-        if (_cat.LifeCount < Utils.MAX_LIFECOUNT)
+        if (Cat.LifeCount < MAX_LIFECOUNT)
             ItemManager.OnModifyLife?.Invoke(1);
     }
 }

@@ -35,7 +35,8 @@ public class UIManager : MonoBehaviour
     public static Action<string> OnRefreshDistance;
     public static Action<int> OnRefreshLife;
 
-    public static Action<Image, Color> OnRefreshCurrentItem;
+    public static Action<Sprite, Color, float> OnRefreshCurrentItem;
+    public static Action OnRestaureItem;
 
     public static Action OnFinishGame;
 
@@ -43,10 +44,20 @@ public class UIManager : MonoBehaviour
     private void RefreshTimer(float value) => timer.text = Mathf.FloorToInt(value).ToString();
     private void RefreshDistance(string value) => distance.text = value;
 
-    private void RefreshItem(Image image, Color color)
+    private void RefreshItem(Sprite image, Color color, float duration)
     {
-        currentItem = image;
-        currentItemColor.color = color;
+        currentItem.sprite = image;
+        currentItemColor.color = new Color(color.r, color.g, color.b, 0.75f);
+
+        StartCoroutine(RestaureItemUI(duration));
+    }
+
+    IEnumerator RestaureItemUI(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        currentItem.sprite = default;
+        currentItemColor.color = Color.blue;
     }
 
     private void RefreshLife(int value)
@@ -55,7 +66,7 @@ public class UIManager : MonoBehaviour
         secondHearth.gameObject.SetActive(value >= 2);
         threeHearth.gameObject.SetActive(value >= 3);
     }
-    
+
     private void Start()
     {
         OnRefreshCoins += RefreshCoins;
@@ -63,9 +74,11 @@ public class UIManager : MonoBehaviour
         OnRefreshLife += RefreshLife;
         OnRefreshDistance += RefreshDistance;
         OnRefreshCurrentItem += RefreshItem;
-        
+
+        OnRestaureItem += OnRestaureItem;
+
         OnFinishGame += StartFinishGame;
-        
+
         if (buttonReturnMenu != null)
             buttonReturnMenu.onClick.AddListener(() => SceneManager.LoadScene(sceneBuildIndex: 0));
 
@@ -75,16 +88,16 @@ public class UIManager : MonoBehaviour
         if (buttonReplay != null)
             buttonReplay.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
-    
+
     private void StartFinishGame()
     {
         StartCoroutine(FinishGame());
     }
-    
+
     private IEnumerator FinishGame()
     {
         yield return new WaitForSeconds(3f); // Timepo que toma que termine la animacion de muerte
-        
+
         panelStatistics.SetActive(true);
 
         finalStats.text = $"Monedas recogidas: {coins.text}" +

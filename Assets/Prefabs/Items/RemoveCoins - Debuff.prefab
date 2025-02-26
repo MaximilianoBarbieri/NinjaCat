@@ -118,3 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da5f4d64abcbd349b823cfde3b47d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteItem: {fileID: 21300000, guid: 481f97bb528f8cc409a6807261845c04, type: 3}
+  _colorItem: {r: 1, g: 0.0990566, b: 0.0990566, a: 0}

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - ObstacleLow
+  - ObstacleHigh
+  - ObstacleFall
+  - ObstacleCenter
+  - Coin
   layers:
   - Default
   - TransparentFX

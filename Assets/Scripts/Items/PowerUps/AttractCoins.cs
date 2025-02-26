@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttractCoins : Buff
 {
-    private float Duration = 5f;
     private const float AttractionSpeed = 10f;
 
-    public override void ProcessEffect()
+    protected override void ProcessEffect()
     {
         StartCoroutine(AttractInRange());
     }
@@ -17,7 +15,7 @@ public class AttractCoins : Buff
         Debug.Log("Atraer monedas en rango");
         float elapsedTime = 0f;
 
-        while (elapsedTime < Duration)
+        while (elapsedTime < DurationEffect)
         {
             Coin[] coins = FindObjectsOfType<Coin>();
 
@@ -25,7 +23,7 @@ public class AttractCoins : Buff
             {
                 if (coins != null)
                 {
-                    Vector3 dir = (_cat.transform.position - coin.transform.position).normalized;
+                    Vector3 dir = (Cat.transform.position - coin.transform.position).normalized;
                     coin.transform.position += dir * AttractionSpeed * Time.deltaTime;
                 }
             }
