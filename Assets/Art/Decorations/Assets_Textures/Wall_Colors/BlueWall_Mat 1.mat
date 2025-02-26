@@ -31,8 +31,9 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _Blend: 1
     - _CurvaturePower: 0.16
-    - _Tiling: 0.3
+    - _Tiling: 1
     - _hasFresnel: 0
     m_Colors:
     - _Color: {r: 0.9056604, g: 0.2538904, b: 0.2007832, a: 0}
