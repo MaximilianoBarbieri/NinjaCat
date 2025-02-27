@@ -15,10 +15,22 @@ public class Model
 
     public void Move(float input)
     {
-        _cat.transform.Translate(
-            new Vector3((ItemManager.IsReverseControls
-                ? -input
-                : input) * _cat.Speed * Time.deltaTime, 0, 0));
+        float moveDirection = ItemManager.IsReverseControls ? -input : input;
+        float moveAmount = moveDirection * _cat.Speed * Time.deltaTime;
+
+        // 🔥 Raycast para detectar muros
+        Vector3 raycastOrigin = _cat.transform.position;
+        Vector3 raycastDirection = new Vector3(moveDirection, 0, 0);
+        float raycastDistance = Mathf.Abs(moveAmount) + 0.1f; // Pequeño margen
+
+        if (!Physics.Raycast(raycastOrigin, raycastDirection, raycastDistance, LayerMask.GetMask("Wall")))
+        {
+            _cat.transform.Translate(new Vector3(moveAmount, 0, 0));
+        }
+        else
+        {
+            Debug.Log("⛔ El personaje intentó atravesar un muro.");
+        }
     }
 
     public void Jump()
