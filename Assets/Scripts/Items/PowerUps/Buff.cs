@@ -6,6 +6,6 @@ public abstract class Buff : Item
 {
     public override void ApplyFX()
     {
-        Fx.Play();
+        _fx.Play();
     }
 }

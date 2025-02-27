@@ -33,9 +33,9 @@ Material:
     - _BUILTIN_QueueOffset: 0
     - _CurvaturePower: 0.16
     - _Tiling: 0.3
-    - _hasFresnel: 1
+    - _hasFresnel: 0
     m_Colors:
-    - _Color: {r: 0.4292453, g: 0.44008246, b: 1, a: 0}
+    - _Color: {r: 0.43867922, g: 0.45021316, b: 1, a: 0}
     - _CurvatureColor: {r: 0.51699895, g: 0.59486157, b: 0.6981132, a: 0}
     - _In: {r: 0, g: 0.7, b: 0, a: 0}
     - _Out: {r: -1, g: 1.25, b: 0, a: 0}

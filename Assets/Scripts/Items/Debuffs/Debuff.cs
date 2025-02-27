@@ -6,6 +6,6 @@ public abstract class Debuff : Item
 {
     public override void ApplyFX()
     {
-        Fx.Play();
+        _fx.Play();
     }
 }

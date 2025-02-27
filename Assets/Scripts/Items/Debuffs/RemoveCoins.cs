@@ -6,9 +6,9 @@ public class RemoveCoins : Debuff
 {
     private int _removeValue = 5;
 
-    public override void ProcessEffect()
+    protected override void ProcessEffect()
     {
-        if (_cat.Coins > 0)
+        if (Cat.Coins > 0)
             ItemManager.OnModifyCoins?.Invoke(_removeValue);
     }
 }

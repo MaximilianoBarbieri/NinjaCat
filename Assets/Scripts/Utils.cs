@@ -15,7 +15,7 @@ public static class Utils
     //PARAMETERS
     public const int INITIAL_LIFE = 3;
     public const int MAX_LIFECOUNT = 3;
-    public const float JUMP_FORCE = 10f;
+    public const float JUMP_FORCE = 8f;
     
     //STATES CLASS
     internal const string STATE_RUN = "RunState";
@@ -32,10 +32,6 @@ public static class Utils
     public const string PARAM_BOOL_JUMP = "IsJumping";
     public const string PARAM_BOOL_SLIDE = "IsSliding";
     public const string PARAM_BOOL_DEAD = "IsDead";
-    
-    public const string PARAM_TRIGGER_DAMAGE_CENTER = "TakeDamageCenter";
-    public const string PARAM_TRIGGER_DAMAGE_LOW = "TakeDamageLow";
-    public const string PARAM_TRIGGER_DAMAGE_HIGH = "TakeDamageHigh";
     
     public const string PARAM_TRIGGER_DEAD_CENTER = "DeadCenter";
     public const string PARAM_TRIGGER_DEAD_LOW = "DeadLow";

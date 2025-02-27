@@ -49,10 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _jumpForce: 5
-  _jumpDuration: 2
+  _jumpForce: 5.25
+  _lifeCount: 3
   catRigidBody: {fileID: 0}
   stateMachine: {fileID: 0}
+  viewTransform: {fileID: 7536118555392397375}
 --- !u!54 &4712147345329562460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,7 +193,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: be44fa6689b981a4683e2e0aae579a16, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 1e2858cf8a605714db4fc961d9514625, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

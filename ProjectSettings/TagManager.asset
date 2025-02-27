@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - ObstacleLow
+  - ObstacleHigh
+  - ObstacleFall
+  - ObstacleCenter
+  - Coin
+  - KillPlane
   layers:
   - Default
   - TransparentFX
@@ -12,8 +18,8 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
+  - Obstacle
+  - CatLayer
   - 
   - 
   - 

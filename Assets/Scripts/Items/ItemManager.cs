@@ -11,8 +11,8 @@ public class ItemManager : MonoBehaviour
     private Cat _cat => FindObjectOfType<Cat>();
 
     public Action<bool> OnModifyControls;
-    public Action<int> OnModifyCoins;
-    public Action<int> OnModifyLife;
+    public Action<int?> OnModifyCoins;
+    public Action<int?> OnModifyLife;
 
     [SerializeField] private List<Item> items = new();
     [SerializeField] private Coin Coin;
@@ -35,12 +35,13 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         OnRequestRoad += RequestItem;
+        OnRequestRoad += RequestCoins;
 
         OnModifyControls = (b) => IsReverseControls = b;
 
-        OnModifyCoins = (i) => _cat.Coins += i;
+        OnModifyCoins = (i) => _cat.Coins += i ?? 0;
 
-        OnModifyLife = (i) => _cat.LifeCount += i;
+        OnModifyLife = (i) => _cat.LifeCount += i ?? 0;
     }
 
     private void RequestItem(GameObject road)
@@ -70,4 +71,27 @@ public class ItemManager : MonoBehaviour
             Instantiate(randomItem, spawnPoint.position, Quaternion.identity, spawnPoint);
         }
     }
+
+    private void RequestCoins(GameObject road)
+    {
+        foreach (Transform child in road.GetComponentsInChildren<Transform>())
+        {
+            if (child.name == "SpawnCoins")
+            {
+                // Eliminar todas las monedas existentes en el SpawnCoins
+                foreach (Transform existingCoin in child)
+                {
+                    Destroy(existingCoin.gameObject);
+                }
+
+                // Generar 5 monedas con una separación de 1 unidad en el eje Z
+                for (int i = 0; i < 5; i++)
+                {
+                    Vector3 spawnPosition = child.position + new Vector3(0, 0, i);
+                    Instantiate(Coin, spawnPosition, Quaternion.identity, child);
+                }
+            }
+        }
+    }
+
 }

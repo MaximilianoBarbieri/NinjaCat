@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static Utils;
 
@@ -8,25 +9,25 @@ public class Cat : MonoBehaviour
     public Controller controllerCat { get; private set; }
 
     [SerializeField] private float _speed;
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _jumpDuration;
-    public int _lifeCount = INITIAL_LIFE; 
-    private int _coins; 
-    
+    [SerializeField] private float _jumpForce = JUMP_FORCE;
+    public int _lifeCount = INITIAL_LIFE;
+    private int _coins;
+    private bool _isInvulnerable;
+
     public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
-    
+    [SerializeField] public Transform viewTransform;
+
     public CapsuleCollider catCollider { get; private set; }
     public float originalHeight { get; private set; }
     public Vector3 originalCenter { get; private set; }
-    
+
     private string lastObstacleTag;
-    
 
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
-    public float JumpDuration => _jumpDuration;
+
     public int LifeCount
     {
         get => _lifeCount;
@@ -38,10 +39,16 @@ public class Cat : MonoBehaviour
         get => _coins;
         set => _coins = value;
     }
-    
+
+    public bool IsInvulnerable
+    {
+        get => _isInvulnerable;
+        set => _isInvulnerable = value;
+    }
+
     public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
     public string GetLastObstacle() => lastObstacleTag;
-    
+
 
     private void Start()
     {
@@ -50,6 +57,8 @@ public class Cat : MonoBehaviour
         catCollider = GetComponent<CapsuleCollider>();
         originalHeight = catCollider.height;
         originalCenter = catCollider.center;
+
+        if (viewTransform == null) Debug.LogError("No se encontró el objeto View dentro del Cat.");
 
         InitializedMVC();
         InitializedStateMachine();
@@ -69,7 +78,6 @@ public class Cat : MonoBehaviour
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
         stateMachine.AddState(CatState.Slide, new SlideState(this));
-        stateMachine.AddState(CatState.TakeDamage, new TakeDamageState(this));
         stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
         stateMachine.AddState(CatState.Win, new WinState(this));
 
@@ -84,10 +92,16 @@ public class Cat : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
+        if (!_isInvulnerable && other.gameObject.layer == LayerMask.NameToLayer(LAYER_OBSTACLE))
         {
             SetLastObstacle(other.tag);
-            modelCat.TakeDamage(other.tag);
+            modelCat.TakeDamage();
+        }
+
+        if (other.gameObject.CompareTag("KillPlane"))
+        {
+            _lifeCount = 0;
+            stateMachine.ChangeState(CatState.Lose);
         }
     }
 
@@ -98,13 +112,14 @@ public class Cat : MonoBehaviour
     public void Lose()
     {
     }
-    
+
     private void OnDrawGizmos()
     {
         if (modelCat == null) return;
 
         float raycastDistance = 0.2f;
-        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f, transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, GetComponent<Collider>().bounds.min.y + 0.1f,
+            transform.position.z);
         Vector3 direction = Vector3.down * raycastDistance;
 
         Gizmos.color = modelCat.IsGrounded() ? Color.green : Color.red;
@@ -117,7 +132,6 @@ public class Cat : MonoBehaviour
         Run,
         Jump,
         Slide,
-        TakeDamage,
         Lose,
         Win
     }
