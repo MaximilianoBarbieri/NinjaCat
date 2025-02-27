@@ -17,6 +17,16 @@ public static class Utils
     public const int MAX_LIFECOUNT = 3;
     public const float JUMP_FORCE = 8f;
     
+    public const float TIME_SPEED_ROAD_EASY = 0f;
+    public const float TIME_SPEED_ROAD_MEDIUM = 30f;
+    public const float TIME_SPEED_ROAD_HARD = 60f;
+    public const float TIME_SPEED_ROAD_PRO = 90f;
+    
+    public const float SPEED_ROAD_EASY = 5f;
+    public const float SPEED_ROAD_MEDIUM = 7f;
+    public const float SPEED_ROAD_HARD = 10f;
+    public const float SPEED_ROAD_PRO = 13f;
+    
     //STATES CLASS
     internal const string STATE_RUN = "RunState";
     internal const string STATE_JUMP = "JumpState";

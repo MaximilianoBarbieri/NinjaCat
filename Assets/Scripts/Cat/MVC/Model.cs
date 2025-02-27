@@ -34,7 +34,7 @@ public class Model
 
     public bool IsGrounded()
     {
-        float raycastDistance = 0.2f;
+        float raycastDistance = 0.5f;
         Vector3 origin = new Vector3(_cat.transform.position.x, _cat.GetComponent<Collider>().bounds.min.y + 0.1f,
             _cat.transform.position.z);
 
