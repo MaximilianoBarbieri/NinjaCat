@@ -18,19 +18,12 @@ public class Model
         float moveDirection = ItemManager.IsReverseControls ? -input : input;
         float moveAmount = moveDirection * _cat.Speed * Time.deltaTime;
 
-        // 🔥 Raycast para detectar muros
         Vector3 raycastOrigin = _cat.transform.position;
         Vector3 raycastDirection = new Vector3(moveDirection, 0, 0);
-        float raycastDistance = Mathf.Abs(moveAmount) + 0.1f; // Pequeño margen
+        float raycastDistance = Mathf.Abs(moveAmount) + 0.1f;
 
         if (!Physics.Raycast(raycastOrigin, raycastDirection, raycastDistance, LayerMask.GetMask("Wall")))
-        {
             _cat.transform.Translate(new Vector3(moveAmount, 0, 0));
-        }
-        else
-        {
-            Debug.Log("⛔ El personaje intentó atravesar un muro.");
-        }
     }
 
     public void Jump()
