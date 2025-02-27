@@ -133,6 +133,8 @@ public class RoadManager : MonoBehaviour
     private void StopAllRoads()
     {
         Debug.Log("Deteniendo todos los Roads porque el personaje ha muerto.");
+        currentSpeed = 0;
+        UpdateRoadSpeeds();
         enabled = false; 
     }
 
