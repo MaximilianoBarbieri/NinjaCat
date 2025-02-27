@@ -99,9 +99,9 @@ public class Model
 
     public void ChangeToSlideCollider()
     {
-        _cat.catCollider.height = _cat.originalHeight / 2f; // Reducir a la mitad
+        _cat.catCollider.height = _cat.originalHeight / 2.5f; // Reducir a la mitad
         _cat.catCollider.center =
-            new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2f,
+            new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2.5f,
                 _cat.catCollider.center.z); // Ajustar la posición
     }
 

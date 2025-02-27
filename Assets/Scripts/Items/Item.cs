@@ -5,31 +5,34 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    protected Cat _cat => FindObjectOfType<Cat>();
-    protected ItemManager ItemManager => FindObjectOfType<ItemManager>();
-
-    private Sprite _spriteItem;
-    private Color _colorItem;
-    private ParticleSystem _fx;
-
+    protected Cat Cat => FindObjectOfType<Cat>();
     private MeshRenderer _view => GetComponent<MeshRenderer>();
     private SphereCollider _collider => GetComponent<SphereCollider>();
+    protected ItemManager ItemManager => FindObjectOfType<ItemManager>();
 
-    public Sprite SpriteItem => _spriteItem;
-    public Color ColorItem => _colorItem;
-    public ParticleSystem Fx => _fx;
+    [SerializeField] private Sprite _spriteItem;
+    [SerializeField] private Color _colorItem;
+
+    protected ParticleSystem _fx;
+
+    protected const float DurationEffect = 3f;
 
     public abstract void ApplyFX();
-    public abstract void ProcessEffect();
+    protected abstract void ProcessEffect();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             ProcessEffect();
+
             DesactiveViewItem(false);
 
             Debug.Log("Cat acaba de tocar un Item!");
+
+            if (gameObject.CompareTag("Coin")) return;
+
+            UIManager.OnRefreshCurrentItem?.Invoke(_spriteItem, _colorItem, DurationEffect);
         }
     }
 

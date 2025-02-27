@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Coin : Item
 {
-    public int CoinValue { get; }
+    private const int CoinValue = 1;
 
     public override void ApplyFX()
     {
     }
 
-    public override void ProcessEffect()
+    protected override void ProcessEffect()
     {
         ItemManager.OnModifyCoins?.Invoke(CoinValue);
         Debug.Log("Obtuviste una moneda!");
