@@ -44,11 +44,12 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _Blend: 1
     - _CurvaturePower: 1
     - _Tiling: 1
     - _hasFresnel: 1
     m_Colors:
-    - _Color: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0}
+    - _Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 0}
     - _CurvatureColor: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 0}
     - _In: {r: -0.11, g: 0.37, b: 0, a: 0}
     - _Out: {r: -0.57, g: 1.6, b: 0, a: 0}
