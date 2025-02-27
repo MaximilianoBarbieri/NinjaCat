@@ -9,7 +9,7 @@ public class View
         _cat._anim.SetBool(anim, value);
     }
     
-    public void PLAY_ANIM_TRIGGER(string anim) //Solo para Death, win o lose
+    public void PLAY_ANIM_TRIGGER(string anim) //Solo para Finish
     {
         _cat._anim.SetTrigger(anim);
     }

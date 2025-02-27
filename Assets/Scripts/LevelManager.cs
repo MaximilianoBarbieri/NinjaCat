@@ -6,44 +6,43 @@ public class LevelManager : MonoBehaviour
     private Cat _cat => FindObjectOfType<Cat>();
 
     private float _timer;
-    private int coins;
-    private int life;
-
-    private bool isGameOver;
-
+    private int _coins;
+    private int _life;
+    private bool _isGameOver;
+    
     private string Distance => _timer.ToString("0.0") + "KM";
 
     private void Start()
     {
         ItemManager.Instance.OnModifyCoins += GetValueCoins;
         ItemManager.Instance.OnModifyLife += GetValueLife;
-        
+
         UIManager.OnFinishGame += HandleGameOver;
     }
 
     private void GetValueLife(int? amount = null)
     {
-        life = _cat.LifeCount;
-        UIManager.OnRefreshLife?.Invoke(life);
+        _life = _cat.LifeCount;
+        UIManager.OnRefreshLife?.Invoke(_life);
     }
 
     private void GetValueCoins(int? amount = null)
     {
-        coins = _cat.Coins;
-        UIManager.OnRefreshCoins?.Invoke(coins);
+        _coins = _cat.Coins;
+        UIManager.OnRefreshCoins?.Invoke(_coins);
     }
 
     private void Update()
     {
-        if (isGameOver) return; // 🔥 Evitar actualizaciones después del Game Over
+        if (_isGameOver) return;
 
         UIManager.OnRefreshTimer?.Invoke(_timer += Time.deltaTime);
         UIManager.OnRefreshDistance?.Invoke(Distance);
     }
-    
+
     private void HandleGameOver()
     {
-        isGameOver = true;
+        _isGameOver = true;
         Debug.Log("Ahora LevelManager ha sido detenido.");
     }
 

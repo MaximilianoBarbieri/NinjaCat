@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    //TODO: TIEMPO // DISTANCIA // COINS
-
     private LevelManager _levelManager => FindObjectOfType<LevelManager>();
 
     [SerializeField] private TextMeshProUGUI timer;
@@ -30,13 +28,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button buttonPlay;
     [SerializeField] private Button buttonReplay;
 
+    public static Action<int> OnRefreshLife;
     public static Action<int> OnRefreshCoins;
     public static Action<float> OnRefreshTimer;
     public static Action<string> OnRefreshDistance;
-    public static Action<int> OnRefreshLife;
 
     public static Action<Sprite, Color, float> OnRefreshCurrentItem;
-    public static Action OnRestaureItem;
 
     public static Action OnFinishGame;
 
@@ -74,9 +71,7 @@ public class UIManager : MonoBehaviour
         OnRefreshLife += RefreshLife;
         OnRefreshDistance += RefreshDistance;
         OnRefreshCurrentItem += RefreshItem;
-
-        OnRestaureItem += OnRestaureItem;
-
+        
         OnFinishGame += StartFinishGame;
 
         if (buttonReturnMenu != null)
@@ -103,17 +98,6 @@ public class UIManager : MonoBehaviour
         finalStats.text = $"Monedas recogidas: {coins.text}" +
                           $"\nTiempo: {timer.text}s" +
                           $"\nDistancia recorrida: {distance.text}m";
-    }
-
-    private void OnEnable()
-    {
-        //OnRefreshCoins += RefreshCoins;
-        //OnRefreshTimer += RefreshTimer;
-        //OnRefreshLife += RefreshLife;
-        //OnRefreshDistance += RefreshDistance;
-//
-//
-        //OnRefreshCurrentItem += RefreshItem;
     }
 
     private void OnDisable()

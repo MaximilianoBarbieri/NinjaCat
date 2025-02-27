@@ -18,9 +18,7 @@ public class SlideState : State
 
     public override void OnUpdate()
     {
-        //Debug.Log("SlideState");
-        
-        if (Input.GetAxisRaw("Horizontal") != 0) _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
+        if (Input.GetAxisRaw(AXIS_RAW_HORIZONTAL) != 0) _cat.modelCat.Move(Input.GetAxisRaw(AXIS_RAW_HORIZONTAL));
         
         _timer -= Time.deltaTime;
         if (_timer <= 0)

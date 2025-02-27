@@ -15,16 +15,11 @@ public class JumpState : State
 
     public override void OnUpdate()
     {
-        //Debug.Log("JumpState");
-
-        if (Input.GetAxisRaw("Horizontal") != 0) _cat.modelCat.Move(Input.GetAxisRaw("Horizontal"));
-        //TODO: verificar si toca el suelo para pasar a RUN
+        if (Input.GetAxisRaw(AXIS_RAW_HORIZONTAL) != 0) _cat.modelCat.Move(Input.GetAxisRaw(AXIS_RAW_HORIZONTAL));
     }
 
     public override void OnExit()
     {
         _cat.viewCat.PLAY_ANIM(PARAM_BOOL_JUMP, false);
     }
-    
-    //TODO: EJECUTAR EN LA ANIMACION UN CAMBIO DE ESTADO A FALL AL TERMINAR DE HACER EL SALTO
 }

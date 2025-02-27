@@ -5,10 +5,7 @@ using static Utils;
 public class Model
 {
     private Cat _cat;
-
-    public bool isGround => IsGrounded();
-    public bool isJumping;
-
+    
     private readonly int _groundLayer = LayerMask.GetMask(LAYER_GROUND);
 
     public Model(Cat cat) => _cat = cat;
@@ -56,7 +53,7 @@ public class Model
         if (_cat._lifeCount <= 0)
         {
             Debug.Log("Cat perdió todas sus vidas. Cambiando a estado Lose.");
-            _cat.stateMachine.ChangeState(Cat.CatState.Lose);
+            _cat.stateMachine.ChangeState(Cat.CatState.Finish);
         }
         else
         {
@@ -92,7 +89,6 @@ public class Model
             elapsedTime += blinkInterval;
         }
 
-        // Al terminar hacerlas tods visibles
         foreach (SkinnedMeshRenderer mesh in meshes)
         {
             mesh.enabled = true;

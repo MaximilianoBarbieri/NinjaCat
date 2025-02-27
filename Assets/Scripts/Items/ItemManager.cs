@@ -13,13 +13,13 @@ public class ItemManager : MonoBehaviour
     public Action<bool> OnModifyControls;
     public Action<int?> OnModifyCoins;
     public Action<int?> OnModifyLife;
+    public Action<GameObject> OnRequestRoad;
 
     [SerializeField] private List<Item> items = new();
     [SerializeField] private Coin Coin;
     public static ItemManager Instance { get; set; }
     public static bool IsReverseControls;
 
-    public Action<GameObject> OnRequestRoad;
 
     private void Awake()
     {
@@ -78,13 +78,11 @@ public class ItemManager : MonoBehaviour
         {
             if (child.name == "SpawnCoins")
             {
-                // Eliminar todas las monedas existentes en el SpawnCoins
                 foreach (Transform existingCoin in child)
                 {
                     Destroy(existingCoin.gameObject);
                 }
 
-                // Generar 5 monedas con una separación de 1 unidad en el eje Z
                 for (int i = 0; i < 5; i++)
                 {
                     Vector3 spawnPosition = child.position + new Vector3(0, 0, i);
@@ -93,5 +91,4 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
-
 }

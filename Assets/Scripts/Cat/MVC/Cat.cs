@@ -10,20 +10,20 @@ public class Cat : MonoBehaviour
 
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce = JUMP_FORCE;
+    [SerializeField] public Transform viewTransform;
+
     public int _lifeCount = INITIAL_LIFE;
     private int _coins;
     private bool _isInvulnerable;
+    private string lastObstacleTag;
 
     public Animator _anim { get; private set; }
     public Rigidbody catRigidBody;
     public StateMachine stateMachine;
-    [SerializeField] public Transform viewTransform;
 
     public CapsuleCollider catCollider { get; private set; }
     public float originalHeight { get; private set; }
     public Vector3 originalCenter { get; private set; }
-
-    private string lastObstacleTag;
 
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
@@ -46,9 +46,8 @@ public class Cat : MonoBehaviour
         set => _isInvulnerable = value;
     }
 
-    public void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
+    private void SetLastObstacle(string obstacleTag) => lastObstacleTag = obstacleTag;
     public string GetLastObstacle() => lastObstacleTag;
-
 
     private void Start()
     {
@@ -78,8 +77,7 @@ public class Cat : MonoBehaviour
         stateMachine.AddState(CatState.Run, new RunState(this));
         stateMachine.AddState(CatState.Jump, new JumpState(this));
         stateMachine.AddState(CatState.Slide, new SlideState(this));
-        stateMachine.AddState(CatState.Lose, new LoseState(this)); //lose o dead?
-        stateMachine.AddState(CatState.Win, new WinState(this));
+        stateMachine.AddState(CatState.Finish, new LoseState(this));
 
         stateMachine.ChangeState(CatState.Run);
     }
@@ -101,16 +99,8 @@ public class Cat : MonoBehaviour
         if (other.gameObject.CompareTag("KillPlane"))
         {
             _lifeCount = 0;
-            stateMachine.ChangeState(CatState.Lose);
+            stateMachine.ChangeState(CatState.Finish);
         }
-    }
-
-    public void Win()
-    {
-    }
-
-    public void Lose()
-    {
     }
 
     private void OnDrawGizmos()
@@ -132,7 +122,6 @@ public class Cat : MonoBehaviour
         Run,
         Jump,
         Slide,
-        Lose,
-        Win
+        Finish
     }
 }
