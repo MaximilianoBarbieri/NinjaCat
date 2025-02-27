@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static Utils;
 
 public class RoadManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class RoadManager : MonoBehaviour
 
     private int roadIndex;
     private bool useRandomSpawn;
+    
+    private float elapsedTime;
+    private float currentSpeed = SPEED_ROAD_EASY;
 
     void Start()
     {
@@ -20,10 +24,50 @@ public class RoadManager : MonoBehaviour
         firstRoad.SetActive(true);
         activeRoads.Enqueue(firstRoad);
         lastRoad = firstRoad;
-
         roadIndex++;
         
+        // Le asigno velocidad al primer Road
+        RoadMove roadMove = firstRoad.GetComponent<RoadMove>();
+        if (roadMove != null) roadMove.SetSpeed(currentSpeed);
+        
         UIManager.OnFinishGame += StopAllRoads;
+    }
+    
+    void Update()
+    {
+        elapsedTime += Time.deltaTime;
+        AdjustSpeed();
+    }
+
+    private void AdjustSpeed()
+    {
+        float newSpeed = currentSpeed;
+
+        if (elapsedTime >= TIME_SPEED_ROAD_PRO)
+            newSpeed = SPEED_ROAD_PRO;
+        else if (elapsedTime >= TIME_SPEED_ROAD_HARD)
+            newSpeed = SPEED_ROAD_HARD;
+        else if (elapsedTime >= TIME_SPEED_ROAD_MEDIUM)
+            newSpeed = SPEED_ROAD_MEDIUM;
+
+        if (Mathf.Abs(newSpeed - currentSpeed) > 0.01f)
+        {
+            currentSpeed = newSpeed;
+            UpdateRoadSpeeds();
+            Debug.Log($"🚀 Nueva velocidad: {currentSpeed}");
+        }
+    }
+    
+    private void UpdateRoadSpeeds()
+    {
+        foreach (GameObject road in activeRoads)
+        {
+            RoadMove roadMove = road.GetComponent<RoadMove>();
+            if (roadMove != null)
+            {
+                roadMove.SetSpeed(currentSpeed);
+            }
+        }
     }
 
     public void ActivateNewRoad()
@@ -57,6 +101,10 @@ public class RoadManager : MonoBehaviour
         newRoad.transform.position = newPosition;
         newRoad.SetActive(true);
 
+        RoadMove roadMove = newRoad.GetComponent<RoadMove>();
+        if (roadMove != null)
+            roadMove.SetSpeed(currentSpeed);
+        
         activeRoads.Enqueue(newRoad);
         lastRoad = newRoad;
         

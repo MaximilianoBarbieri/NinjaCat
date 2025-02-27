@@ -28,7 +28,7 @@ public class Model
 
     public void Jump()
     {
-        if (!IsGrounded()) return; // Evita que salte si no está en el suelo
+        if (!IsGrounded()) return; 
 
         var velocity = _cat.catRigidBody.velocity;
         velocity = new Vector3(velocity.x, 0f, velocity.z);
@@ -60,7 +60,7 @@ public class Model
         }
         else
         {
-            Debug.Log("Cat recibió daño, vidas restantes: " + _cat._lifeCount);
+            Debug.Log("Cat recibio daño, vidas restantes: " + _cat._lifeCount);
             _cat.StartCoroutine(InvulnerabilityRoutine());
         }
     }
@@ -77,7 +77,7 @@ public class Model
 
         if (meshes.Length == 0)
         {
-            Debug.LogError("No se encontraron SkinnedMeshRenderers en View.");
+            Debug.LogError("No se encontraron Renderers en View.");
             yield break;
         }
         
@@ -92,7 +92,7 @@ public class Model
             elapsedTime += blinkInterval;
         }
 
-        // Al terminar hacerlas todas visibles
+        // Al terminar hacerlas tods visibles
         foreach (SkinnedMeshRenderer mesh in meshes)
         {
             mesh.enabled = true;
@@ -104,23 +104,14 @@ public class Model
 
     public void ChangeToSlideCollider()
     {
-        _cat.catCollider.height = _cat.originalHeight / 2.5f; // Reducir a la mitad
+        _cat.catCollider.height = _cat.originalHeight / 2.5f; 
         _cat.catCollider.center =
-            new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2.5f,
-                _cat.catCollider.center.z); // Ajustar la posición
+            new Vector3(_cat.catCollider.center.x, _cat.originalCenter.y / 2.5f, _cat.catCollider.center.z);
     }
 
     public void ResetCollider()
     {
         _cat.catCollider.height = _cat.originalHeight;
         _cat.catCollider.center = _cat.originalCenter;
-    }
-
-    private void CollectPowerUp()
-    {
-    }
-
-    private void CollectNerf()
-    {
     }
 }

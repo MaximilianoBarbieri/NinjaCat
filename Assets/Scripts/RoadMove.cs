@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RoadMove : MonoBehaviour
 {
-    private float speed = 5f; // Velocidad de movimiento
+    private float speed;
 
     private void Start()
     {
@@ -14,6 +14,10 @@ public class RoadMove : MonoBehaviour
         transform.Translate(Vector3.back * (speed * Time.deltaTime));
     }
     
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
     
     private void StopRoad()
     {
