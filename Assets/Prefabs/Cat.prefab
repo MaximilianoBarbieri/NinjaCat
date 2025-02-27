@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
-  _jumpForce: 5
+  _jumpForce: 5.25
   _lifeCount: 3
   catRigidBody: {fileID: 0}
   stateMachine: {fileID: 0}

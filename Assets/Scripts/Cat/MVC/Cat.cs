@@ -9,7 +9,7 @@ public class Cat : MonoBehaviour
     public Controller controllerCat { get; private set; }
 
     [SerializeField] private float _speed;
-    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpForce = JUMP_FORCE;
     public int _lifeCount = INITIAL_LIFE;
     private int _coins;
     private bool _isInvulnerable;

@@ -15,7 +15,7 @@ public static class Utils
     //PARAMETERS
     public const int INITIAL_LIFE = 3;
     public const int MAX_LIFECOUNT = 3;
-    public const float JUMP_FORCE = 10f;
+    public const float JUMP_FORCE = 8f;
     
     //STATES CLASS
     internal const string STATE_RUN = "RunState";
