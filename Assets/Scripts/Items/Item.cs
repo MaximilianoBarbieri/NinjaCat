@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     protected Cat Cat => FindObjectOfType<Cat>();
-    private MeshRenderer _view => GetComponent<MeshRenderer>();
+    private MeshRenderer _view => GetComponentInChildren<MeshRenderer>();
     private SphereCollider _collider => GetComponent<SphereCollider>();
     protected ItemManager ItemManager => FindObjectOfType<ItemManager>();
 

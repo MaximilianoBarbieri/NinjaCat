@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoveCoins : Debuff
 {
-    private int _removeValue = 5;
+    private int _removeValue = -5;
 
     protected override void ProcessEffect()
     {
