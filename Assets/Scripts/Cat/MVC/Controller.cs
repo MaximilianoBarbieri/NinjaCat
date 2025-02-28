@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Utils;
 
 public class Controller
@@ -24,6 +25,8 @@ public class Controller
         {
             _cat.stateMachine.ChangeState(Cat.CatState.Run);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 
     private bool CanJump()
